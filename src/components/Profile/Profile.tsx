@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Profile.module.css";
-import avaImg from "../src/assets/images/avatar.jpg";
+import avaImg from "../../assets/images/avatar.jpg";
+import { MyPosts } from "./MyPosts/MyPosts";
 
 export const Profile = () => {
   return (
@@ -9,13 +10,7 @@ export const Profile = () => {
         <img className={styles.ava} src={avaImg} alt="avatar" />
         <div>Description</div>
       </div>
-      <div>My posts</div>
-      <div>New post</div>
-      <div>
-        <div>Post1</div>
-        <div>Post2</div>
-        <div>Post3</div>
-      </div>
+      <MyPosts />
     </div>
   );
 };

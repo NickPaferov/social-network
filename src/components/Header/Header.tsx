@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Header.module.css";
-import logoImg from "../src/assets/images/logo.jpg";
-import avaImg from "../src/assets/images/avatar.jpg";
+import logoImg from "../../assets/images/logo.jpg";
+import avaImg from "../../assets/images/avatar.jpg";
 
 export const Header = () => {
   return (
