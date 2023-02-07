@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./Sidebar.module.css";
+import styles from "./Navbar.module.css";
 
-export const Sidebar = () => {
+export const Navbar = () => {
   return (
     <div className={styles.navBlock}>
       <div>Profile</div>

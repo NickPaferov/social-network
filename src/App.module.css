@@ -17,12 +17,12 @@
     display: flex;
 }
 
-.sidebar {
+.navbar {
     width: 20%;
     background-color: lightblue;
 }
 
-.content {
+.profile {
     width: 80%;
     background-color: lavender;
 }

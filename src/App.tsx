@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import { Content } from "./Content";
+import { Profile } from "./Profile";
 import { Header } from "./Header";
-import { Sidebar } from "./Sidebar";
+import { Navbar } from "./Navbar";
 import styles from "./App.module.css";
 
 function App() {
@@ -12,11 +12,11 @@ function App() {
         <Header />
       </div>
       <div className={styles.body}>
-        <div className={styles.sidebar}>
-          <Sidebar />
+        <div className={styles.navbar}>
+          <Navbar />
         </div>
-        <div className={styles.content}>
-          <Content />
+        <div className={styles.profile}>
+          <Profile />
         </div>
       </div>
     </div>
