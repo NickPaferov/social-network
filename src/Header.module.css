@@ -1,0 +1,19 @@
+.wrapper {
+    height: 100%;
+    margin: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo, .ava {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
