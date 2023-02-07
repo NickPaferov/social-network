@@ -10,11 +10,11 @@ export const MyPosts = () => {
         <textarea />
         <button className={styles.btn}>Add post</button>
       </div>
-      <Post name={"Post1"} />
-      <Post name={"Post2"} />
-      <Post name={"Post3"} />
-      <Post name={"Post4"} />
-      <Post name={"Post5"} />
+      <Post postText={"Post1"} />
+      <Post postText={"Post2"} />
+      <Post postText={"Post3"} />
+      <Post postText={"Post4"} />
+      <Post postText={"Post5"} />
     </div>
   );
 };

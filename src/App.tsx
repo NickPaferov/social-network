@@ -4,6 +4,7 @@ import { Profile } from "./components/Profile/Profile";
 import { Header } from "./components/Header/Header";
 import { Navbar } from "./components/Navbar/Navbar";
 import styles from "./App.module.css";
+import { Dialogs } from "./components/Dialogs/Dialogs";
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
         <div className={styles.navbar}>
           <Navbar />
         </div>
-        <div className={styles.profile}>
-          <Profile />
+        <div className={styles.content}>
+          {/*<Profile />*/}
+          <Dialogs />
         </div>
       </div>
     </div>
