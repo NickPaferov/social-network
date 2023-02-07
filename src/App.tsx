@@ -17,8 +17,8 @@ function App() {
           <Navbar />
         </div>
         <div className={styles.content}>
-          {/*<Profile />*/}
-          <Dialogs />
+          <Profile />
+          {/*<Dialogs />*/}
         </div>
       </div>
     </div>
