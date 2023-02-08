@@ -1,3 +1,15 @@
 .navBlock {
     margin: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.link {
+    color: navy;
+    text-decoration: none;
+}
+
+.activeLink {
+    font-weight: bold;
 }

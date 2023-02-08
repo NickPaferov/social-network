@@ -3,3 +3,9 @@
     display: flex;
     gap: 100px;
 }
+
+.dialogsItems {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

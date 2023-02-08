@@ -26,7 +26,7 @@ export const Dialogs = () => {
       <div className={styles.dialogs}>
         <div className={styles.dialogsItems}>
           {dialogs.map((dialog) => (
-            <DialogItem key={dialog.id} name={dialog.name} />
+            <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} />
           ))}
         </div>
       </div>

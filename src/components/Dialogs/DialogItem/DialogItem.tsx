@@ -1,10 +1,16 @@
 import React, { FC } from "react";
-import styles from "../Dialogs.module.css";
+import { NavLink } from "react-router-dom";
+import styles from "./DialogItem.module.css";
 
 type PropsType = {
+  id: number;
   name: string;
 };
 
-export const DialogItem: FC<PropsType> = ({ name }) => {
-  return <div className={styles.dialog}>{name}</div>;
+export const DialogItem: FC<PropsType> = ({ id, name }) => {
+  return (
+    <NavLink to={`/dialogs/${id}`} className={styles.dialog}>
+      {name}
+    </NavLink>
+  );
 };
