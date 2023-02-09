@@ -2,3 +2,6 @@
     color: navy;
     text-decoration: none;
 }
+.activeDialog {
+    font-weight: bold;
+}

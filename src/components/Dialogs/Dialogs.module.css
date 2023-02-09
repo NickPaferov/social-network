@@ -9,3 +9,14 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.messageArea {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.btn {
+    width: 80px;
+}

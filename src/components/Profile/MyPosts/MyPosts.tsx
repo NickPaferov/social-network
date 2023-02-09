@@ -1,22 +1,38 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import styles from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
+import { useAppDispatch, useAppSelector } from "../../../bll/store";
+import { addPostAC } from "../../../bll/profile-reducer";
 
 export const MyPosts = () => {
-  const posts = [
-    { id: 1, postText: "Post1", likesCount: 11 },
-    { id: 2, postText: "Post2", likesCount: 7 },
-    { id: 3, postText: "Post3", likesCount: 16 },
-    { id: 4, postText: "Post4", likesCount: 5 },
-    { id: 5, postText: "Post5", likesCount: 10 },
-  ];
+  const dispatch = useAppDispatch();
+
+  const posts = useAppSelector((state) => state.profilePage.posts);
+
+  const [newPostText, setNewPostText] = useState("");
+
+  const handleChangeNewPostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setNewPostText(e.currentTarget.value);
+  };
+
+  const handleAddPost = () => {
+    dispatch(addPostAC({ id: posts.length + 1, postText: newPostText, likesCount: 0 }));
+    setNewPostText("");
+  };
 
   return (
     <div>
       <div>My posts</div>
       <div className={styles.postArea}>
-        <textarea />
-        <button className={styles.btn}>Add post</button>
+        <textarea
+          autoFocus
+          placeholder="Enter your text"
+          value={newPostText}
+          onChange={handleChangeNewPostText}
+        />
+        <button className={styles.btn} onClick={handleAddPost}>
+          Add post
+        </button>
       </div>
       {posts.map((post) => (
         <Post key={post.id} postText={post.postText} likesCount={post.likesCount} />
