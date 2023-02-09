@@ -1,10 +1,10 @@
 const initialState = {
   posts: [
-    { id: 1, postText: "Post1", likesCount: 11 },
-    { id: 2, postText: "Post2", likesCount: 7 },
+    { id: 1, postText: "Post5", likesCount: 11 },
+    { id: 2, postText: "Post4", likesCount: 7 },
     { id: 3, postText: "Post3", likesCount: 16 },
-    { id: 4, postText: "Post4", likesCount: 5 },
-    { id: 5, postText: "Post5", likesCount: 10 },
+    { id: 4, postText: "Post2", likesCount: 5 },
+    { id: 5, postText: "Post1", likesCount: 10 },
   ] as PostType[],
 };
 
