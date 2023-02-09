@@ -15,6 +15,9 @@ export const Navbar = () => {
       <NavLink to="/profile" className={setActive}>
         Profile
       </NavLink>
+      <NavLink to="/users" className={setActive}>
+        Users
+      </NavLink>
       <NavLink to="/dialogs" className={setActive}>
         Messages
       </NavLink>
