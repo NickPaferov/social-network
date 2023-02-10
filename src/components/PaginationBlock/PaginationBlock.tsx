@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import styles from "./PaginationBlock.module.css";
 
 type PropsType = {
@@ -66,6 +66,10 @@ export const PaginationBlock: FC<PropsType> = ({
     onChangeCurrentPage(pagesCount);
   };
 
+  useEffect(() => {
+    setPagesRangeNumber(Math.ceil(currentPage / pagesRangeSize));
+  }, [currentPage, pagesRangeSize]);
+
   return (
     <div className={styles.paginationBlock}>
       <div className={styles.pages}>
@@ -75,7 +79,7 @@ export const PaginationBlock: FC<PropsType> = ({
         <button disabled={currentPage === 1} onClick={handleDecreaseCurrentPage}>
           &#60;
         </button>
-        {firstRangePageNumber !== 1 && (
+        {pagesRangeNumber !== 1 && (
           <div className={styles.firstPage}>
             <button
               className={currentPage === 1 ? `${styles.page} ${styles.selectedPage}` : styles.page}
@@ -83,7 +87,7 @@ export const PaginationBlock: FC<PropsType> = ({
             >
               {1}
             </button>
-            <span>&#8230;</span>
+            {currentPage !== 2 && <span>&#8230;</span>}
           </div>
         )}
         {currentPage < firstRangePageNumber && currentPage !== 1 && (
@@ -110,9 +114,9 @@ export const PaginationBlock: FC<PropsType> = ({
             <button className={`${styles.page} ${styles.selectedPage}`}>{currentPage}</button>
           </div>
         )}
-        {lastRangePageNumber !== pagesCount && (
+        {pagesRangeNumber !== pagesRangesCount && (
           <div className={styles.lastPage}>
-            <span>&#8230;</span>
+            {currentPage !== pagesCount - 1 && <span>&#8230;</span>}
             <button
               className={
                 currentPage === pagesCount ? `${styles.page} ${styles.selectedPage}` : styles.page
