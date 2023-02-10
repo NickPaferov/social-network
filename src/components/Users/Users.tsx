@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { followUserAC, setUsersAC, unfollowUserAC } from "../../bll/users-reducer";
 import styles from "./Users.module.css";
+import userPhoto from "../../assets/images/userPhoto.jpg";
+import { api } from "../../api/api";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
@@ -17,27 +19,29 @@ export const Users = () => {
   };
 
   useEffect(() => {
-    dispatch(
-      setUsersAC([
-        { id: 1, photo: "userPhoto", followed: true, fullName: "Alexey B." },
-        { id: 2, photo: "userPhoto", followed: false, fullName: "Andrew K. " },
-        { id: 3, photo: "userPhoto", followed: false, fullName: "Artem T." },
-        { id: 4, photo: "userPhoto", followed: true, fullName: "Denis K." },
-        { id: 5, photo: "userPhoto", followed: true, fullName: "Dmitry Z." },
-        { id: 6, photo: "userPhoto", followed: true, fullName: "Ilya L." },
-        { id: 7, photo: "userPhoto", followed: false, fullName: "Nikita D." },
-        { id: 8, photo: "userPhoto", followed: true, fullName: "Sergey T." },
-      ])
-    );
+    api.getUsers().then((response) => dispatch(setUsersAC(response.data.items)));
   }, [dispatch]);
 
   return (
     <div className={styles.content}>
       {users.map((user) => (
         <div key={user.id} className={styles.userArea}>
-          <div>
-            <img src={user.photo} alt="userPhoto" className={styles.userPhoto} />
-            <span>{user.fullName}</span>
+          <div className={styles.userData}>
+            <img
+              src={
+                user.photos.small
+                  ? user.photos.small
+                  : user.photos.large
+                  ? user.photos.large
+                  : userPhoto
+              }
+              alt="userPhoto"
+              className={styles.userPhoto}
+            />
+            <div className={styles.userInfo}>
+              <span>{user.name}</span>
+              <span>{user.status}</span>
+            </div>
           </div>
           {user.followed ? (
             <button className={styles.btn} onClick={() => handleUnfollowUser(user.id)}>

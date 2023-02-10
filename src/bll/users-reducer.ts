@@ -1,3 +1,5 @@
+import { UserType } from "../api/api";
+
 const initialState = {
   users: [] as UserType[],
 };
@@ -25,12 +27,6 @@ export const followUserAC = (userId: number) => ({ type: "FOLLOW-USER", userId }
 export const unfollowUserAC = (userId: number) => ({ type: "UNFOLLOW-USER", userId } as const);
 export const setUsersAC = (users: UserType[]) => ({ type: "SET-USERS", users } as const);
 
-type UserType = {
-  id: number;
-  photo: string;
-  followed: boolean;
-  fullName: string;
-};
 type InitialStateType = typeof initialState;
 export type UsersActionsType =
   | ReturnType<typeof followUserAC>
