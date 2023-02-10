@@ -5,14 +5,15 @@ export const instance = axios.create({
 });
 
 export const api = {
-  getUsers() {
-    return instance.get<UsersResponseType>("users");
+  getUsers(page: number, count: number) {
+    return instance.get<UsersResponseType>(`users?page=${page}&count=${count}`);
   },
 };
 
 type UsersResponseType = {
   items: UserType[];
   totalCount: number;
+  error: string;
 };
 
 export type UserType = {

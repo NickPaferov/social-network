@@ -1,14 +1,25 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { followUserAC, setUsersAC, unfollowUserAC } from "../../bll/users-reducer";
+import {
+  followUserAC,
+  setCurrentPageAC,
+  setTotalUsersCountAC,
+  setUsersAC,
+  setUsersCountPerPageAC,
+  unfollowUserAC,
+} from "../../bll/users-reducer";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/userPhoto.jpg";
 import { api } from "../../api/api";
+import { PaginationBlock } from "../PaginationBlock/PaginationBlock";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
 
   const users = useAppSelector((state) => state.usersPage.users);
+  const totalUsersCount = useAppSelector((state) => state.usersPage.totalUsersCount);
+  const currentPage = useAppSelector((state) => state.usersPage.currentPage);
+  const usersCountPerPage = useAppSelector((state) => state.usersPage.usersCountPerPage);
 
   const handleUnfollowUser = (userId: number) => {
     dispatch(unfollowUserAC(userId));
@@ -18,12 +29,32 @@ export const Users = () => {
     dispatch(followUserAC(userId));
   };
 
+  const onChangeCurrentPage = (page: number) => {
+    dispatch(setCurrentPageAC(page));
+  };
+
+  const onChangeUsersCountPerPage = (usersCountPerPage: number) => {
+    dispatch(setUsersCountPerPageAC(usersCountPerPage));
+  };
+
   useEffect(() => {
-    api.getUsers().then((response) => dispatch(setUsersAC(response.data.items)));
-  }, [dispatch]);
+    api.getUsers(currentPage, usersCountPerPage).then((response) => {
+      dispatch(setUsersAC(response.data.items));
+      dispatch(setTotalUsersCountAC(response.data.totalCount));
+    });
+  }, [dispatch, totalUsersCount, currentPage, usersCountPerPage]);
 
   return (
     <div className={styles.content}>
+      <PaginationBlock
+        totalItemsCount={totalUsersCount}
+        pagesRangeSize={10}
+        currentPage={currentPage}
+        itemsCountPerPage={usersCountPerPage}
+        itemsName={"users"}
+        onChangeCurrentPage={onChangeCurrentPage}
+        onChangeItemsCountPerPage={onChangeUsersCountPerPage}
+      />
       {users.map((user) => (
         <div key={user.id} className={styles.userArea}>
           <div className={styles.userData}>

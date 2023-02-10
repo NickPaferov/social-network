@@ -1,0 +1,26 @@
+.paginationBlock {
+    margin-bottom: 20px;
+}
+
+.pages {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.page {
+    width: 40px;
+}
+
+.firstPage, .lastPage {
+    display: flex;
+    gap: 10px;
+}
+
+.selectedPage {
+    font-weight: bold;
+    background-color: cornflowerblue;
+    color: white;
+    border: transparent;
+    border-radius: 10%;
+}
