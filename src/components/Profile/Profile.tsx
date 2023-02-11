@@ -12,6 +12,8 @@ export const Profile = () => {
   const dispatch = useAppDispatch();
 
   const userProfile = useAppSelector((state) => state.profilePage.userProfile);
+  const authedUserId = useAppSelector((state) => state.auth.id);
+  const currentUserId = useAppSelector((state) => state.profilePage.userProfile?.userId);
 
   const { userId } = useParams(); // string || undefined
 
@@ -33,7 +35,7 @@ export const Profile = () => {
   return (
     <div className={styles.content}>
       <ProfileInfo />
-      <MyPosts />
+      {authedUserId === currentUserId && <MyPosts />}
     </div>
   );
 };

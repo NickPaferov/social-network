@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ProfileInfo.module.css";
-import userPhoto from "../../../assets/images/userPhoto.jpg";
+import defaultPhoto from "../../../assets/images/defaultPhoto.jpg";
 import { useAppSelector } from "../../../bll/store";
 
 export const ProfileInfo = () => {
@@ -15,7 +15,7 @@ export const ProfileInfo = () => {
             ? userProfile.photos.large
             : userProfile?.photos.small
             ? userProfile.photos.small
-            : userPhoto
+            : defaultPhoto
         }
         alt="avatar"
       />

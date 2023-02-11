@@ -12,9 +12,8 @@ import { Settings } from "./components/Settings/Settings";
 import { Users } from "./components/Users/Users";
 import { useAppDispatch } from "./bll/store";
 import { api } from "./api/api";
-import { setAuthUserDataAC } from "./bll/auth-reducer";
+import { setAuthedUserProfileAC, setAuthUserDataAC } from "./bll/auth-reducer";
 import { setIsRequestProcessingStatusAC } from "./bll/app-reducer";
-import { setUserProfileAC } from "./bll/profile-reducer";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -25,7 +24,7 @@ function App() {
       if (response.data.resultCode === 0) {
         dispatch(setAuthUserDataAC(response.data.data));
         api.getUserProfile(response.data.data.id).then((response) => {
-          dispatch(setUserProfileAC(response.data));
+          dispatch(setAuthedUserProfileAC(response.data));
           dispatch(setIsRequestProcessingStatusAC(false));
         });
       }
