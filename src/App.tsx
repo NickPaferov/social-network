@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { Profile } from "./components/Profile/Profile";
 import { Header } from "./components/Header/Header";
@@ -10,8 +10,28 @@ import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Users } from "./components/Users/Users";
+import { useAppDispatch } from "./bll/store";
+import { api } from "./api/api";
+import { setAuthUserDataAC } from "./bll/auth-reducer";
+import { setIsRequestProcessingStatusAC } from "./bll/app-reducer";
+import { setUserProfileAC } from "./bll/profile-reducer";
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setIsRequestProcessingStatusAC(true));
+    api.authMe().then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(setAuthUserDataAC(response.data.data));
+        api.getUserProfile(response.data.data.id).then((response) => {
+          dispatch(setUserProfileAC(response.data));
+          dispatch(setIsRequestProcessingStatusAC(false));
+        });
+      }
+    });
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <div className={styles.layout}>

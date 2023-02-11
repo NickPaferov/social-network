@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
+  withCredentials: true,
 });
 
 export const api = {
@@ -10,6 +11,9 @@ export const api = {
   },
   getUserProfile(userId: number) {
     return instance.get<UserProfileResponseType>(`profile/${userId}`);
+  },
+  authMe() {
+    return instance.get<AuthMeResponseType>("auth/me");
   },
 };
 
@@ -51,4 +55,17 @@ type UserContactsType = {
   youtube?: any;
   github: string;
   mainLink?: any;
+};
+
+export type AuthMeResponseType = {
+  data: AuthUserDataType;
+  messages: any[];
+  fieldsErrors: any[];
+  resultCode: number;
+};
+
+export type AuthUserDataType = {
+  id: number;
+  login: string;
+  email: string;
 };

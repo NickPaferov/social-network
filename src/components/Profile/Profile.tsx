@@ -17,7 +17,7 @@ export const Profile = () => {
 
   useEffect(() => {
     dispatch(setIsRequestProcessingStatusAC(true));
-    api.getUserProfile(userId ? parseInt(userId) : 2).then((response) => {
+    api.getUserProfile(userId ? parseInt(userId) : 24855).then((response) => {
       dispatch(setUserProfileAC(response.data));
       dispatch(setIsRequestProcessingStatusAC(false));
     });
