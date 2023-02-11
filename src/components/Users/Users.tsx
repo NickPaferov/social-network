@@ -11,7 +11,8 @@ import {
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/userPhoto.jpg";
 import { api } from "../../api/api";
-import { PaginationBlock } from "../PaginationBlock/PaginationBlock";
+import { PaginationBlock } from "../common/PaginationBlock/PaginationBlock";
+import { setIsRequestProcessingStatusAC } from "../../bll/app-reducer";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ export const Users = () => {
   const totalUsersCount = useAppSelector((state) => state.usersPage.totalUsersCount);
   const currentPage = useAppSelector((state) => state.usersPage.currentPage);
   const usersCountPerPage = useAppSelector((state) => state.usersPage.usersCountPerPage);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
 
   const handleUnfollowUser = (userId: number) => {
     dispatch(unfollowUserAC(userId));
@@ -38,9 +40,11 @@ export const Users = () => {
   };
 
   useEffect(() => {
+    dispatch(setIsRequestProcessingStatusAC(true));
     api.getUsers(currentPage, usersCountPerPage).then((response) => {
       dispatch(setUsersAC(response.data.items));
       dispatch(setTotalUsersCountAC(response.data.totalCount));
+      dispatch(setIsRequestProcessingStatusAC(false));
     });
   }, [dispatch, totalUsersCount, currentPage, usersCountPerPage]);
 
@@ -75,11 +79,19 @@ export const Users = () => {
             </div>
           </div>
           {user.followed ? (
-            <button className={styles.btn} onClick={() => handleUnfollowUser(user.id)}>
+            <button
+              className={styles.btn}
+              disabled={isRequestProcessing}
+              onClick={() => handleUnfollowUser(user.id)}
+            >
               Unollow
             </button>
           ) : (
-            <button className={styles.btn} onClick={() => handleFollowUser(user.id)}>
+            <button
+              className={styles.btn}
+              disabled={isRequestProcessing}
+              onClick={() => handleFollowUser(user.id)}
+            >
               Follow
             </button>
           )}

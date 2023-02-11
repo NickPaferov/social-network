@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import styles from "./PaginationBlock.module.css";
+import { useAppSelector } from "../../../bll/store";
 
 type PropsType = {
   totalItemsCount: number;
@@ -20,6 +21,8 @@ export const PaginationBlock: FC<PropsType> = ({
   onChangeCurrentPage,
   onChangeItemsCountPerPage,
 }) => {
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+
   const [pagesRangeNumber, setPagesRangeNumber] = useState(1);
 
   const pagesCount = Math.ceil(totalItemsCount / itemsCountPerPage);
@@ -73,16 +76,23 @@ export const PaginationBlock: FC<PropsType> = ({
   return (
     <div className={styles.paginationBlock}>
       <div className={styles.pages}>
-        <button disabled={pagesRangeNumber === 1} onClick={handleDecreasePagesRangeNumber}>
+        <button
+          disabled={isRequestProcessing || pagesRangeNumber === 1}
+          onClick={handleDecreasePagesRangeNumber}
+        >
           &#11164;
         </button>
-        <button disabled={currentPage === 1} onClick={handleDecreaseCurrentPage}>
+        <button
+          disabled={isRequestProcessing || currentPage === 1}
+          onClick={handleDecreaseCurrentPage}
+        >
           &#60;
         </button>
         {pagesRangeNumber !== 1 && (
           <div className={styles.firstPage}>
             <button
               className={currentPage === 1 ? `${styles.page} ${styles.selectedPage}` : styles.page}
+              disabled={isRequestProcessing}
               onClick={handleSetFirstPageAsCurrent}
             >
               {1}
@@ -92,7 +102,12 @@ export const PaginationBlock: FC<PropsType> = ({
         )}
         {currentPage < firstRangePageNumber && currentPage !== 1 && (
           <div className={styles.firstPage}>
-            <button className={`${styles.page} ${styles.selectedPage}`}>{currentPage}</button>
+            <button
+              className={`${styles.page} ${styles.selectedPage}`}
+              disabled={isRequestProcessing}
+            >
+              {currentPage}
+            </button>
             <span>&#8230;</span>
           </div>
         )}
@@ -103,6 +118,7 @@ export const PaginationBlock: FC<PropsType> = ({
               className={
                 page === currentPage ? `${styles.page} ${styles.selectedPage}` : styles.page
               }
+              disabled={isRequestProcessing}
               onClick={() => handleChangeCurrentPage(page)}
             >
               {page}
@@ -111,7 +127,12 @@ export const PaginationBlock: FC<PropsType> = ({
         {currentPage > lastRangePageNumber && currentPage !== pagesCount && (
           <div className={styles.firstPage}>
             <span>&#8230;</span>
-            <button className={`${styles.page} ${styles.selectedPage}`}>{currentPage}</button>
+            <button
+              className={`${styles.page} ${styles.selectedPage}`}
+              disabled={isRequestProcessing}
+            >
+              {currentPage}
+            </button>
           </div>
         )}
         {pagesRangeNumber !== pagesRangesCount && (
@@ -121,17 +142,21 @@ export const PaginationBlock: FC<PropsType> = ({
               className={
                 currentPage === pagesCount ? `${styles.page} ${styles.selectedPage}` : styles.page
               }
+              disabled={isRequestProcessing}
               onClick={handleSetLastPageAsCurrent}
             >
               {pagesCount}
             </button>
           </div>
         )}
-        <button disabled={currentPage === pagesCount} onClick={handleIncreaseCurrentPage}>
+        <button
+          disabled={isRequestProcessing || currentPage === pagesCount}
+          onClick={handleIncreaseCurrentPage}
+        >
           &#62;
         </button>
         <button
-          disabled={pagesRangeNumber === pagesRangesCount}
+          disabled={isRequestProcessing || pagesRangeNumber === pagesRangesCount}
           onClick={handleIncreasePagesRangeNumber}
         >
           &#11166;
@@ -139,7 +164,11 @@ export const PaginationBlock: FC<PropsType> = ({
       </div>
       <div>
         <span>Show </span>
-        <select value={itemsCountPerPage} onChange={handleChangeItemsCountPerPage}>
+        <select
+          disabled={isRequestProcessing}
+          value={itemsCountPerPage}
+          onChange={handleChangeItemsCountPerPage}
+        >
           <option value={5}>5</option>
           <option value={10}>10</option>
           <option value={25}>25</option>
