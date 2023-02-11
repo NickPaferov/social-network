@@ -113,8 +113,9 @@ export const PaginationBlock: FC<PropsType> = ({
         )}
         {pages
           .filter((page) => page >= firstRangePageNumber && page <= lastRangePageNumber)
-          .map((page) => (
+          .map((page, index) => (
             <button
+              key={index}
               className={
                 page === currentPage ? `${styles.page} ${styles.selectedPage}` : styles.page
               }

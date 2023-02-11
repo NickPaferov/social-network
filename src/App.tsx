@@ -24,7 +24,7 @@ function App() {
           </div>
           <div className={styles.content}>
             <Routes>
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:userId?" element={<Profile />} />
               <Route path="/users" element={<Users />} />
               <Route path="/dialogs/*" element={<Dialogs />} />
               <Route path="/news" element={<News />} />

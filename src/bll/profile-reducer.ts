@@ -1,3 +1,5 @@
+import { UserProfileResponseType } from "../api/api";
+
 const initialState = {
   posts: [
     { id: 1, postText: "Post5", likesCount: 11 },
@@ -6,6 +8,7 @@ const initialState = {
     { id: 4, postText: "Post2", likesCount: 5 },
     { id: 5, postText: "Post1", likesCount: 10 },
   ] as PostType[],
+  userProfile: null as UserProfileResponseType | null,
 };
 
 export const profileReducer = (
@@ -13,14 +16,18 @@ export const profileReducer = (
   action: ProfileActionsType
 ): InitialStateType => {
   switch (action.type) {
-    case "ADD-POST":
+    case "PROFILE/ADD-POST":
       return { ...state, posts: [action.post, ...state.posts] };
+    case "PROFILE/SET-USER-PROFILE":
+      return { ...state, userProfile: action.userProfile };
     default:
       return state;
   }
 };
 
-export const addPostAC = (post: PostType) => ({ type: "ADD-POST", post } as const);
+export const addPostAC = (post: PostType) => ({ type: "PROFILE/ADD-POST", post } as const);
+export const setUserProfileAC = (userProfile: UserProfileResponseType | null) =>
+  ({ type: "PROFILE/SET-USER-PROFILE", userProfile } as const);
 
 type PostType = {
   id: number;
@@ -28,4 +35,4 @@ type PostType = {
   likesCount: number;
 };
 type InitialStateType = typeof initialState;
-export type ProfileActionsType = ReturnType<typeof addPostAC>;
+export type ProfileActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof setUserProfileAC>;

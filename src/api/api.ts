@@ -8,6 +8,9 @@ export const api = {
   getUsers(page: number, count: number) {
     return instance.get<UsersResponseType>(`users?page=${page}&count=${count}`);
   },
+  getUserProfile(userId: number) {
+    return instance.get<UserProfileResponseType>(`profile/${userId}`);
+  },
 };
 
 type UsersResponseType = {
@@ -19,12 +22,33 @@ type UsersResponseType = {
 export type UserType = {
   id: number;
   name: string;
-  photos: PhotosType;
+  photos: UserPhotosType;
   status: string;
   followed: boolean;
 };
 
-type PhotosType = {
+type UserPhotosType = {
   small: string;
   large: string;
+};
+
+export type UserProfileResponseType = {
+  aboutMe: string;
+  contacts: UserContactsType;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  userId: number;
+  photos: UserPhotosType;
+};
+
+type UserContactsType = {
+  facebook: string;
+  website?: any;
+  vk: string;
+  twitter: string;
+  instagram: string;
+  youtube?: any;
+  github: string;
+  mainLink?: any;
 };

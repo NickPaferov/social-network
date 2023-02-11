@@ -13,9 +13,11 @@ import userPhoto from "../../assets/images/userPhoto.jpg";
 import { api } from "../../api/api";
 import { PaginationBlock } from "../common/PaginationBlock/PaginationBlock";
 import { setIsRequestProcessingStatusAC } from "../../bll/app-reducer";
+import { useNavigate } from "react-router-dom";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const users = useAppSelector((state) => state.usersPage.users);
   const totalUsersCount = useAppSelector((state) => state.usersPage.totalUsersCount);
@@ -48,6 +50,13 @@ export const Users = () => {
     });
   }, [dispatch, totalUsersCount, currentPage, usersCountPerPage]);
 
+  const handleMoveToUserProfile = (userId: number) => {
+    if (isRequestProcessing) {
+      return;
+    }
+    navigate(`/profile/${userId}`);
+  };
+
   return (
     <div className={styles.content}>
       <PaginationBlock
@@ -63,6 +72,7 @@ export const Users = () => {
         <div key={user.id} className={styles.userArea}>
           <div className={styles.userData}>
             <img
+              className={styles.userPhoto}
               src={
                 user.photos.small
                   ? user.photos.small
@@ -71,7 +81,7 @@ export const Users = () => {
                   : userPhoto
               }
               alt="userPhoto"
-              className={styles.userPhoto}
+              onClick={() => handleMoveToUserProfile(user.id)}
             />
             <div className={styles.userInfo}>
               <span>{user.name}</span>
