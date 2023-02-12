@@ -9,7 +9,7 @@ import {
   unfollowUserAC,
 } from "../../bll/users-reducer";
 import styles from "./Users.module.css";
-import userPhoto from "../../assets/images/userPhoto.jpg";
+import defaultPhoto from "../../assets/images/defaultPhoto.jpg";
 import { api } from "../../api/api";
 import { PaginationBlock } from "../common/PaginationBlock/PaginationBlock";
 import { setIsRequestProcessingStatusAC } from "../../bll/app-reducer";
@@ -78,7 +78,7 @@ export const Users = () => {
                   ? user.photos.small
                   : user.photos.large
                   ? user.photos.large
-                  : userPhoto
+                  : defaultPhoto
               }
               alt="userPhoto"
               onClick={() => handleMoveToUserProfile(user.id)}
