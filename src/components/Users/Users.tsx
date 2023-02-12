@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import {
   setCurrentPageAC,
+  setIsPaginationParamsLoadingAC,
   setTotalUsersCountAC,
   setUsersAC,
   setUsersCountPerPageAC,
@@ -34,9 +35,11 @@ export const Users = () => {
 
   useEffect(() => {
     dispatch(setIsRequestProcessingStatusAC(true));
+    dispatch(setIsPaginationParamsLoadingAC(true));
     usersAPI.getUsers(currentPage, usersCountPerPage).then((response) => {
       dispatch(setUsersAC(response.data.items));
       dispatch(setTotalUsersCountAC(response.data.totalCount));
+      dispatch(setIsPaginationParamsLoadingAC(false));
       dispatch(setIsRequestProcessingStatusAC(false));
     });
   }, [dispatch, totalUsersCount, currentPage, usersCountPerPage]);

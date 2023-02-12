@@ -5,6 +5,9 @@ const initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   usersCountPerPage: 5,
+  isPaginationParamsLoading: false,
+  isFollowProcessing: false,
+  usersInFollowingProcess: [] as number[],
 };
 
 export const usersReducer = (state = initialState, action: UsersActionsType): InitialStateType => {
@@ -30,6 +33,15 @@ export const usersReducer = (state = initialState, action: UsersActionsType): In
       return { ...state, currentPage: action.currentPage };
     case "USERS/SET-USERS-COUNT-PER-PAGE":
       return { ...state, usersCountPerPage: action.usersCountPerPage };
+    case "USERS/SET-IS-PAGINATION-PARAMS-LOADING-STATUS":
+      return { ...state, isPaginationParamsLoading: action.isPaginationParamsLoading };
+    case "USERS/SET-USERS-IN-FOLLOWING-PROCESS":
+      return {
+        ...state,
+        usersInFollowingProcess: action.isFollowProcessing
+          ? [...state.usersInFollowingProcess, action.userId]
+          : state.usersInFollowingProcess.filter((userId) => userId !== action.userId),
+      };
     default:
       return state;
   }
@@ -45,6 +57,10 @@ export const setCurrentPageAC = (currentPage: number) =>
   ({ type: "USERS/SET-CURRENT-PAGE", currentPage } as const);
 export const setUsersCountPerPageAC = (usersCountPerPage: number) =>
   ({ type: "USERS/SET-USERS-COUNT-PER-PAGE", usersCountPerPage } as const);
+export const setIsPaginationParamsLoadingAC = (isPaginationParamsLoading: boolean) =>
+  ({ type: "USERS/SET-IS-PAGINATION-PARAMS-LOADING-STATUS", isPaginationParamsLoading } as const);
+export const setUsersInFollowingProcessAC = (isFollowProcessing: boolean, userId: number) =>
+  ({ type: "USERS/SET-USERS-IN-FOLLOWING-PROCESS", isFollowProcessing, userId } as const);
 
 type InitialStateType = typeof initialState;
 export type UsersActionsType =
@@ -53,4 +69,6 @@ export type UsersActionsType =
   | ReturnType<typeof setUsersAC>
   | ReturnType<typeof setTotalUsersCountAC>
   | ReturnType<typeof setCurrentPageAC>
-  | ReturnType<typeof setUsersCountPerPageAC>;
+  | ReturnType<typeof setUsersCountPerPageAC>
+  | ReturnType<typeof setIsPaginationParamsLoadingAC>
+  | ReturnType<typeof setUsersInFollowingProcessAC>;
