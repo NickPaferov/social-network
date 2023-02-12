@@ -1,4 +1,4 @@
-import { UserProfileResponseType } from "../api/api";
+import { UserProfileResponseType } from "../api/profile-api";
 
 const initialState = {
   posts: [

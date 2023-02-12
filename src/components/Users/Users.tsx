@@ -8,11 +8,11 @@ import {
 } from "../../bll/users-reducer";
 import styles from "./Users.module.css";
 import defaultPhoto from "../../assets/images/defaultPhoto.jpg";
-import { api } from "../../api/api";
 import { PaginationBlock } from "../common/PaginationBlock/PaginationBlock";
 import { setIsRequestProcessingStatusAC } from "../../bll/app-reducer";
 import { useNavigate } from "react-router-dom";
 import { FollowUnfollow } from "../common/FollowUnfollow/FollowUnfollow";
+import { usersAPI } from "../../api/users-api";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +34,7 @@ export const Users = () => {
 
   useEffect(() => {
     dispatch(setIsRequestProcessingStatusAC(true));
-    api.getUsers(currentPage, usersCountPerPage).then((response) => {
+    usersAPI.getUsers(currentPage, usersCountPerPage).then((response) => {
       dispatch(setUsersAC(response.data.items));
       dispatch(setTotalUsersCountAC(response.data.totalCount));
       dispatch(setIsRequestProcessingStatusAC(false));

@@ -1,4 +1,4 @@
-import { UserType } from "../api/api";
+import { UserType } from "../api/users-api";
 
 const initialState = {
   users: [] as UserType[],

@@ -11,19 +11,20 @@ import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Users } from "./components/Users/Users";
 import { useAppDispatch } from "./bll/store";
-import { api } from "./api/api";
+import { authAPI } from "./api/auth-api";
 import { setAuthedUserProfileAC, setAuthUserDataAC } from "./bll/auth-reducer";
 import { setIsRequestProcessingStatusAC } from "./bll/app-reducer";
+import { profileAPI } from "./api/profile-api";
 
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setIsRequestProcessingStatusAC(true));
-    api.authMe().then((response) => {
+    authAPI.authMe().then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(setAuthUserDataAC(response.data.data));
-        api.getUserProfile(response.data.data.id).then((response) => {
+        profileAPI.getUserProfile(response.data.data.id).then((response) => {
           dispatch(setAuthedUserProfileAC(response.data));
           dispatch(setIsRequestProcessingStatusAC(false));
         });

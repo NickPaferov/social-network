@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import styles from "./FollowUnfollow.module.css";
 import { followUserAC, unfollowUserAC } from "../../../bll/users-reducer";
 import { useAppDispatch, useAppSelector } from "../../../bll/store";
-import { api } from "../../../api/api";
 import { setIsRequestProcessingStatusAC } from "../../../bll/app-reducer";
+import { followAPI } from "../../../api/follow-api";
 
 type PropsType = {
   followed: boolean;
@@ -17,7 +17,7 @@ export const FollowUnfollow: FC<PropsType> = ({ followed, userId }) => {
 
   const handleUnfollowUser = () => {
     dispatch(setIsRequestProcessingStatusAC(true));
-    api.unfollow(userId).then((response) => {
+    followAPI.unfollow(userId).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(unfollowUserAC(userId));
         dispatch(setIsRequestProcessingStatusAC(false));
@@ -27,7 +27,7 @@ export const FollowUnfollow: FC<PropsType> = ({ followed, userId }) => {
 
   const handleFollowUser = () => {
     dispatch(setIsRequestProcessingStatusAC(true));
-    api.follow(userId).then((response) => {
+    followAPI.follow(userId).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(followUserAC(userId));
         dispatch(setIsRequestProcessingStatusAC(false));

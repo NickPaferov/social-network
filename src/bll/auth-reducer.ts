@@ -1,4 +1,5 @@
-import { AuthUserDataType, UserProfileResponseType } from "../api/api";
+import { AuthUserDataType } from "../api/auth-api";
+import { UserProfileResponseType } from "../api/profile-api";
 
 const initialState = {
   id: null as number | null,
