@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import {
-  followUserAC,
   setCurrentPageAC,
   setTotalUsersCountAC,
   setUsersAC,
   setUsersCountPerPageAC,
-  unfollowUserAC,
 } from "../../bll/users-reducer";
 import styles from "./Users.module.css";
 import defaultPhoto from "../../assets/images/defaultPhoto.jpg";
@@ -14,6 +12,7 @@ import { api } from "../../api/api";
 import { PaginationBlock } from "../common/PaginationBlock/PaginationBlock";
 import { setIsRequestProcessingStatusAC } from "../../bll/app-reducer";
 import { useNavigate } from "react-router-dom";
+import { FollowUnfollow } from "../common/FollowUnfollow/FollowUnfollow";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
@@ -24,14 +23,6 @@ export const Users = () => {
   const currentPage = useAppSelector((state) => state.usersPage.currentPage);
   const usersCountPerPage = useAppSelector((state) => state.usersPage.usersCountPerPage);
   const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
-
-  const handleUnfollowUser = (userId: number) => {
-    dispatch(unfollowUserAC(userId));
-  };
-
-  const handleFollowUser = (userId: number) => {
-    dispatch(followUserAC(userId));
-  };
 
   const onChangeCurrentPage = (page: number) => {
     dispatch(setCurrentPageAC(page));
@@ -88,23 +79,7 @@ export const Users = () => {
               <span>{user.status}</span>
             </div>
           </div>
-          {user.followed ? (
-            <button
-              className={styles.btn}
-              disabled={isRequestProcessing}
-              onClick={() => handleUnfollowUser(user.id)}
-            >
-              Unollow
-            </button>
-          ) : (
-            <button
-              className={styles.btn}
-              disabled={isRequestProcessing}
-              onClick={() => handleFollowUser(user.id)}
-            >
-              Follow
-            </button>
-          )}
+          <FollowUnfollow followed={user.followed} userId={user.id} />
         </div>
       ))}
     </div>

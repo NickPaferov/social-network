@@ -3,6 +3,9 @@ import axios from "axios";
 export const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   withCredentials: true,
+  headers: {
+    "API-KEY": "804c672f-f395-46b8-8910-e4f6db1d6b62",
+  },
 });
 
 export const api = {
@@ -14,6 +17,12 @@ export const api = {
   },
   authMe() {
     return instance.get<AuthMeResponseType>("auth/me");
+  },
+  follow(userId: number) {
+    return instance.post<FollowUnfollowResponseType>(`follow/${userId}`);
+  },
+  unfollow(userId: number) {
+    return instance.delete<FollowUnfollowResponseType>(`follow/${userId}`);
   },
 };
 
@@ -69,3 +78,12 @@ export type AuthUserDataType = {
   login: string;
   email: string;
 };
+
+export type FollowUnfollowResponseType = {
+  data: FollowUnfollowDataType;
+  messages: any[];
+  fieldsErrors: any[];
+  resultCode: number;
+};
+
+type FollowUnfollowDataType = {};
