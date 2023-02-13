@@ -1,4 +1,6 @@
-import { UserProfileResponseType } from "../api/profile-api";
+import { profileAPI, UserProfileResponseType } from "../api/profile-api";
+import { DispatchType } from "./store";
+import { setIsRequestProcessingStatusAC } from "./app-reducer";
 
 const initialState = {
   posts: [
@@ -28,6 +30,14 @@ export const profileReducer = (
 export const addPostAC = (post: PostType) => ({ type: "PROFILE/ADD-POST", post } as const);
 export const setUserProfileAC = (userProfile: UserProfileResponseType | null) =>
   ({ type: "PROFILE/SET-USER-PROFILE", userProfile } as const);
+
+export const getUserProfileTC = (userId: number) => (dispatch: DispatchType) => {
+  dispatch(setIsRequestProcessingStatusAC(true));
+  profileAPI.getUserProfile(userId).then((response) => {
+    dispatch(setUserProfileAC(response.data));
+    dispatch(setIsRequestProcessingStatusAC(false));
+  });
+};
 
 type PostType = {
   id: number;

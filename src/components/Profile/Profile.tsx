@@ -3,10 +3,8 @@ import styles from "./Profile.module.css";
 import { MyPosts } from "./MyPosts/MyPosts";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { setUserProfileAC } from "../../bll/profile-reducer";
-import { setIsRequestProcessingStatusAC } from "../../bll/app-reducer";
+import { getUserProfileTC, setUserProfileAC } from "../../bll/profile-reducer";
 import { useParams } from "react-router-dom";
-import { profileAPI } from "../../api/profile-api";
 
 export const Profile = () => {
   const dispatch = useAppDispatch();
@@ -18,11 +16,7 @@ export const Profile = () => {
   const { userId } = useParams(); // string || undefined
 
   useEffect(() => {
-    dispatch(setIsRequestProcessingStatusAC(true));
-    profileAPI.getUserProfile(userId ? parseInt(userId) : 24855).then((response) => {
-      dispatch(setUserProfileAC(response.data));
-      dispatch(setIsRequestProcessingStatusAC(false));
-    });
+    dispatch(getUserProfileTC(userId ? parseInt(userId) : 24855));
     return () => {
       dispatch(setUserProfileAC(null));
     };

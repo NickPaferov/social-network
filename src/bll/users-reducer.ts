@@ -1,4 +1,7 @@
-import { UserType } from "../api/users-api";
+import { usersAPI, UserType } from "../api/users-api";
+import { setIsRequestProcessingStatusAC } from "./app-reducer";
+import { DispatchType } from "./store";
+import { followAPI } from "../api/follow-api";
 
 const initialState = {
   users: [] as UserType[],
@@ -61,6 +64,42 @@ export const setIsPaginationParamsLoadingAC = (isPaginationParamsLoading: boolea
   ({ type: "USERS/SET-IS-PAGINATION-PARAMS-LOADING-STATUS", isPaginationParamsLoading } as const);
 export const setUsersInFollowingProcessAC = (isFollowProcessing: boolean, userId: number) =>
   ({ type: "USERS/SET-USERS-IN-FOLLOWING-PROCESS", isFollowProcessing, userId } as const);
+
+export const getUsersTC =
+  (currentPage: number, usersCountPerPage: number) => (dispatch: DispatchType) => {
+    dispatch(setIsRequestProcessingStatusAC(true));
+    dispatch(setIsPaginationParamsLoadingAC(true));
+    usersAPI.getUsers(currentPage, usersCountPerPage).then((response) => {
+      dispatch(setUsersAC(response.data.items));
+      dispatch(setTotalUsersCountAC(response.data.totalCount));
+      dispatch(setIsPaginationParamsLoadingAC(false));
+      dispatch(setIsRequestProcessingStatusAC(false));
+    });
+  };
+
+export const followUserTC = (userId: number) => (dispatch: DispatchType) => {
+  dispatch(setIsRequestProcessingStatusAC(true));
+  dispatch(setUsersInFollowingProcessAC(true, userId));
+  followAPI.follow(userId).then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(followUserAC(userId));
+    }
+    dispatch(setUsersInFollowingProcessAC(false, userId));
+    dispatch(setIsRequestProcessingStatusAC(false));
+  });
+};
+
+export const unfollowUserTC = (userId: number) => (dispatch: DispatchType) => {
+  dispatch(setIsRequestProcessingStatusAC(true));
+  dispatch(setUsersInFollowingProcessAC(true, userId));
+  followAPI.unfollow(userId).then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(unfollowUserAC(userId));
+    }
+    dispatch(setUsersInFollowingProcessAC(false, userId));
+    dispatch(setIsRequestProcessingStatusAC(false));
+  });
+};
 
 type InitialStateType = typeof initialState;
 export type UsersActionsType =

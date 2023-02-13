@@ -1,5 +1,7 @@
-import { AuthUserDataType } from "../api/auth-api";
-import { UserProfileResponseType } from "../api/profile-api";
+import { authAPI, AuthUserDataType } from "../api/auth-api";
+import { profileAPI, UserProfileResponseType } from "../api/profile-api";
+import { DispatchType } from "./store";
+import { setIsRequestProcessingStatusAC } from "./app-reducer";
 
 const initialState = {
   id: null as number | null,
@@ -27,6 +29,19 @@ export const setAuthUserDataAC = (data: AuthUserDataType) =>
   } as const);
 export const setAuthedUserProfileAC = (authedUserProfile: UserProfileResponseType | null) =>
   ({ type: "AUTH/SET-AUTHED-USER-PROFILE", authedUserProfile } as const);
+
+export const authMeTC = () => (dispatch: DispatchType) => {
+  dispatch(setIsRequestProcessingStatusAC(true));
+  authAPI.authMe().then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(setAuthUserDataAC(response.data.data));
+      profileAPI.getUserProfile(response.data.data.id).then((response) => {
+        dispatch(setAuthedUserProfileAC(response.data));
+      });
+    }
+    dispatch(setIsRequestProcessingStatusAC(false));
+  });
+};
 
 type InitialStateType = typeof initialState;
 

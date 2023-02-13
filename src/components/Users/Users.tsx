@@ -1,19 +1,11 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import {
-  setCurrentPageAC,
-  setIsPaginationParamsLoadingAC,
-  setTotalUsersCountAC,
-  setUsersAC,
-  setUsersCountPerPageAC,
-} from "../../bll/users-reducer";
+import { getUsersTC, setCurrentPageAC, setUsersCountPerPageAC } from "../../bll/users-reducer";
 import styles from "./Users.module.css";
 import defaultPhoto from "../../assets/images/defaultPhoto.jpg";
 import { PaginationBlock } from "../common/PaginationBlock/PaginationBlock";
-import { setIsRequestProcessingStatusAC } from "../../bll/app-reducer";
 import { useNavigate } from "react-router-dom";
 import { FollowUnfollow } from "../common/FollowUnfollow/FollowUnfollow";
-import { usersAPI } from "../../api/users-api";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
@@ -34,14 +26,7 @@ export const Users = () => {
   };
 
   useEffect(() => {
-    dispatch(setIsRequestProcessingStatusAC(true));
-    dispatch(setIsPaginationParamsLoadingAC(true));
-    usersAPI.getUsers(currentPage, usersCountPerPage).then((response) => {
-      dispatch(setUsersAC(response.data.items));
-      dispatch(setTotalUsersCountAC(response.data.totalCount));
-      dispatch(setIsPaginationParamsLoadingAC(false));
-      dispatch(setIsRequestProcessingStatusAC(false));
-    });
+    dispatch(getUsersTC(currentPage, usersCountPerPage));
   }, [dispatch, totalUsersCount, currentPage, usersCountPerPage]);
 
   const handleMoveToUserProfile = (userId: number) => {

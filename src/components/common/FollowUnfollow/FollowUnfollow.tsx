@@ -1,13 +1,7 @@
 import React, { FC } from "react";
 import styles from "./FollowUnfollow.module.css";
-import {
-  followUserAC,
-  setUsersInFollowingProcessAC,
-  unfollowUserAC,
-} from "../../../bll/users-reducer";
+import { followUserTC, unfollowUserTC } from "../../../bll/users-reducer";
 import { useAppDispatch, useAppSelector } from "../../../bll/store";
-import { setIsRequestProcessingStatusAC } from "../../../bll/app-reducer";
-import { followAPI } from "../../../api/follow-api";
 
 type PropsType = {
   followed: boolean;
@@ -25,27 +19,11 @@ export const FollowUnfollow: FC<PropsType> = ({ followed, userId }) => {
   );
 
   const handleUnfollowUser = () => {
-    dispatch(setIsRequestProcessingStatusAC(true));
-    dispatch(setUsersInFollowingProcessAC(true, userId));
-    followAPI.unfollow(userId).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(unfollowUserAC(userId));
-        dispatch(setUsersInFollowingProcessAC(false, userId));
-        dispatch(setIsRequestProcessingStatusAC(false));
-      }
-    });
+    dispatch(unfollowUserTC(userId));
   };
 
   const handleFollowUser = () => {
-    dispatch(setIsRequestProcessingStatusAC(true));
-    dispatch(setUsersInFollowingProcessAC(true, userId));
-    followAPI.follow(userId).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(followUserAC(userId));
-        dispatch(setUsersInFollowingProcessAC(false, userId));
-        dispatch(setIsRequestProcessingStatusAC(false));
-      }
-    });
+    dispatch(followUserTC(userId));
   };
 
   return (

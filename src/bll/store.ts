@@ -33,7 +33,7 @@ export type AppThunkType<ReturnType = void> = ThunkAction<
   AppRootActionsType
 >;
 
-type DispatchType = ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>;
+export type DispatchType = ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>;
 
 export const useAppDispatch = () => useDispatch<DispatchType>();
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
