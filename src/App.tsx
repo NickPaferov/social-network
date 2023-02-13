@@ -12,6 +12,8 @@ import { Settings } from "./components/Settings/Settings";
 import { Users } from "./components/Users/Users";
 import { useAppDispatch } from "./bll/store";
 import { authMeTC } from "./bll/auth-reducer";
+import { Login } from "./components/Login/Login";
+import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,9 +34,15 @@ function App() {
           </div>
           <div className={styles.content}>
             <Routes>
-              <Route path="/profile/:userId?" element={<Profile />} />
+              <Route path="/" element={<Profile />} />
+              <Route element={<ProtectedRoutes userIsAuth={true} redirectTo="/login" />}>
+                <Route path="/profile/:userId?" element={<Profile />} />
+                <Route path="/dialogs/*" element={<Dialogs />} />
+              </Route>
+              <Route element={<ProtectedRoutes userIsAuth={false} redirectTo="/profile" />}>
+                <Route path="/login" element={<Login />} />
+              </Route>
               <Route path="/users" element={<Users />} />
-              <Route path="/dialogs/*" element={<Dialogs />} />
               <Route path="/news" element={<News />} />
               <Route path="/music" element={<Music />} />
               <Route path="/settings" element={<Settings />} />
