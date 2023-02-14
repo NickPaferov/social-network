@@ -1,0 +1,8 @@
+.status {
+    display: flex;
+    gap: 10px;
+}
+
+.pencil {
+    cursor: pointer;
+}

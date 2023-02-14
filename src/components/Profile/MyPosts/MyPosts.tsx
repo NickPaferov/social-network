@@ -21,7 +21,7 @@ export const MyPosts = () => {
   };
 
   return (
-    <div>
+    <div className={styles.myPosts}>
       <div>My posts</div>
       <div className={styles.postArea}>
         <textarea

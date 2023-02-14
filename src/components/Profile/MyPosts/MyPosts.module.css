@@ -1,3 +1,7 @@
+.myPosts {
+    margin-top: 35px;
+}
+
 .postArea {
     width: 200px;
     display: flex;
