@@ -10,17 +10,28 @@ import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Users } from "./components/Users/Users";
-import { useAppDispatch } from "./bll/store";
-import { authMeTC } from "./bll/auth-reducer";
+import { useAppDispatch, useAppSelector } from "./bll/store";
 import { Login } from "./components/Login/Login";
 import { ProtectedRoutes } from "./utils/ProtectedRoutes";
+import { Preloader } from "./components/common/Preloader/Preloader";
+import { initializeAppTC } from "./bll/app-reducer";
 
 function App() {
   const dispatch = useAppDispatch();
 
+  const isAppInitialized = useAppSelector((state) => state.app.isInitialized);
+
   useEffect(() => {
-    dispatch(authMeTC());
+    dispatch(initializeAppTC());
   }, [dispatch]);
+
+  if (!isAppInitialized) {
+    return (
+      <div className={`${styles.layout} ${styles.initialization}`}>
+        <Preloader />
+      </div>
+    );
+  }
 
   return (
     <BrowserRouter>

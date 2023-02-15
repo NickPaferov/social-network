@@ -41,7 +41,9 @@ export const Header = () => {
             src={authedUserPhoto ? authedUserPhoto : defaultPhoto}
             alt="avatar"
           />
-          <button onClick={handleLogout}>LogOut</button>
+          <button onClick={handleLogout} disabled={isRequestProcessing}>
+            LogOut
+          </button>
         </div>
       ) : (
         <button onClick={handleMoveToLoginPage}>LogIn</button>

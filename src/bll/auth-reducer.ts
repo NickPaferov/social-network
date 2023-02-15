@@ -45,10 +45,12 @@ export const setAuthedUserProfileAC = (authedUserProfile: UserProfileResponseTyp
   ({ type: "AUTH/SET-AUTHED-USER-PROFILE", authedUserProfile } as const);
 export const setCaptchaUrlAC = (captchaUrl: string | null) =>
   ({ type: "AUTH/SET-CAPTCHA", captchaUrl } as const);
+export const setIsLoginProcessingAC = (isLoginProcessing: boolean) =>
+  ({ type: "AUTH/SET-IS-LOGIN-PROCESSING", isLoginProcessing } as const);
 
 export const authMeTC = () => (dispatch: DispatchType) => {
   dispatch(setIsRequestProcessingStatusAC(true));
-  authAPI.authMe().then((response) => {
+  return authAPI.authMe().then((response) => {
     if (response.data.resultCode === 0) {
       const { id, login, email } = response.data.data;
       dispatch(setAuthUserDataAC(id, login, email, true));
