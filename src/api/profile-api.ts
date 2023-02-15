@@ -10,6 +10,15 @@ export const profileAPI = {
   updateUserStatus(status: string) {
     return instance.put<UpdateStatusResponseType>("profile/status", { status });
   },
+  updateUserPhoto(file: any) {
+    const formData = new FormData();
+    formData.append("image", file);
+    return instance.put<UpdatePhotoResponseType>("profile/photo", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
 };
 
 export type UserProfileResponseType = {
@@ -33,9 +42,9 @@ type UserContactsType = {
   mainLink?: string;
 };
 
-type UserPhotosType = {
-  small: string;
-  large: string;
+export type UserPhotosType = {
+  small: string | null;
+  large: string | null;
 };
 
 export type UpdateStatusResponseType = {
@@ -45,3 +54,11 @@ export type UpdateStatusResponseType = {
 };
 
 type UpdateStatusDataType = {};
+
+type UpdatePhotoResponseType = {
+  resultCode: number;
+  messages: string[];
+  data: {
+    photos: UserPhotosType;
+  };
+};

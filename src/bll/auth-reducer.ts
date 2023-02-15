@@ -1,15 +1,15 @@
 import { authAPI } from "../api/auth-api";
-import { profileAPI, UserProfileResponseType } from "../api/profile-api";
+import { profileAPI } from "../api/profile-api";
 import { DispatchType } from "./store";
 import { setIsRequestProcessingStatusAC } from "./app-reducer";
 import { securityAPI } from "../api/security-api";
+import { setAuthedUserProfileAC } from "./profile-reducer";
 
 const initialState = {
   id: null as number | null,
   email: null as string | null,
   login: null as string | null,
   isAuth: false,
-  authedUserProfile: null as UserProfileResponseType | null,
   captchaUrl: null as string | null,
 };
 
@@ -17,8 +17,6 @@ export const authReducer = (state = initialState, action: AuthActionsType): Init
   switch (action.type) {
     case "AUTH/SET-AUTH-USER-DATA":
       return { ...state, ...action.payload };
-    case "AUTH/SET-AUTHED-USER-PROFILE":
-      return { ...state, authedUserProfile: action.authedUserProfile };
     case "AUTH/SET-CAPTCHA":
       return { ...state, captchaUrl: action.captchaUrl };
     default:
@@ -41,8 +39,6 @@ export const setAuthUserDataAC = (
       isAuth,
     },
   } as const);
-export const setAuthedUserProfileAC = (authedUserProfile: UserProfileResponseType | null) =>
-  ({ type: "AUTH/SET-AUTHED-USER-PROFILE", authedUserProfile } as const);
 export const setCaptchaUrlAC = (captchaUrl: string | null) =>
   ({ type: "AUTH/SET-CAPTCHA", captchaUrl } as const);
 
@@ -99,5 +95,4 @@ type InitialStateType = typeof initialState;
 
 export type AuthActionsType =
   | ReturnType<typeof setAuthUserDataAC>
-  | ReturnType<typeof setAuthedUserProfileAC>
   | ReturnType<typeof setCaptchaUrlAC>;

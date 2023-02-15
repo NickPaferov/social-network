@@ -15,7 +15,7 @@ export const Header = () => {
 
   const isAuth = useAppSelector((state) => state.auth.isAuth);
   const login = useAppSelector((state) => state.auth.login);
-  const authedUserPhoto = useAppSelector((state) => state.auth.authedUserProfile?.photos.large);
+  const authedUserProfile = useAppSelector((state) => state.profilePage.authedUserProfile);
 
   const handleLogout = () => {
     dispatch(logoutTC());
@@ -38,7 +38,13 @@ export const Header = () => {
           <span className={styles.logIn}>{login}</span>
           <img
             className={styles.ava}
-            src={authedUserPhoto ? authedUserPhoto : defaultPhoto}
+            src={
+              authedUserProfile?.photos.large
+                ? authedUserProfile.photos.large
+                : authedUserProfile?.photos.small
+                ? authedUserProfile.photos.small
+                : defaultPhoto
+            }
             alt="avatar"
           />
           <button onClick={handleLogout} disabled={isRequestProcessing}>

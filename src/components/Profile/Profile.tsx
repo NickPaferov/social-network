@@ -3,16 +3,16 @@ import styles from "./Profile.module.css";
 import { MyPosts } from "./MyPosts/MyPosts";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { getUserProfileTC, setUserProfileAC } from "../../bll/profile-reducer";
+import { getUserProfileTC, setCurrentUserProfileAC } from "../../bll/profile-reducer";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const Profile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const userProfile = useAppSelector((state) => state.profilePage.userProfile);
+  const currentUserProfile = useAppSelector((state) => state.profilePage.currentUserProfile);
   const authedUserId = useAppSelector((state) => state.auth.id);
-  const currentUserId = useAppSelector((state) => state.profilePage.userProfile?.userId);
+  const currentUserId = useAppSelector((state) => state.profilePage.currentUserProfile?.userId);
 
   const { userId } = useParams(); // string || undefined
 
@@ -23,11 +23,11 @@ export const Profile = () => {
       dispatch(getUserProfileTC(userId ? parseInt(userId) : authedUserId));
     }
     return () => {
-      dispatch(setUserProfileAC(null));
+      dispatch(setCurrentUserProfileAC(null));
     };
   }, [dispatch, navigate, authedUserId, userId]);
 
-  if (!userProfile) {
+  if (!currentUserProfile) {
     return <div className={styles.content}>Loading...</div>;
   }
 

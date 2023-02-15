@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import styles from "./ProfileStatus.module.css";
 import { useAppDispatch, useAppSelector } from "../../../../bll/store";
-import { getUserStatusTC, updateUserStatusTC } from "../../../../bll/profile-reducer";
+import { getUserStatusTC, updateAuthedUserStatusTC } from "../../../../bll/profile-reducer";
 
 type PropsType = { userId: number };
 
@@ -20,7 +20,7 @@ export const ProfileStatus: FC<PropsType> = ({ userId }) => {
   };
 
   const handleUpdateStatus = () => {
-    dispatch(updateUserStatusTC(status));
+    dispatch(updateAuthedUserStatusTC(status));
     setEditMode(false);
   };
 
