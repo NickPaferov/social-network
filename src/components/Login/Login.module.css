@@ -19,3 +19,18 @@
 .captcha {
     margin: 10px 0;
 }
+
+.explanation {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    opacity: 0.7;
+}
+
+.link {
+    margin: 0 5px;
+}
+
+.btn {
+    margin-top: 20px;
+}

@@ -19,7 +19,7 @@ const schema = yup
     password: yup
       .string()
       .required("Password is required")
-      .min(8, "Password should be at least 8 characters")
+      .min(3, "Password should be at least 3 characters")
       .max(20, "Password should be at most 20 characters"),
   })
   .required();
@@ -51,6 +51,22 @@ export const Login = () => {
     <div className={styles.content}>
       <div className={styles.wrapper}>
         <h2>LogIn</h2>
+        <div className={styles.explanation}>
+          <span>
+            To log in get registered
+            <a
+              className={styles.link}
+              href={"https://social-network.samuraijs.com/"}
+              target={"_blank"}
+              rel={"noreferrer"}
+            >
+              here
+            </a>
+          </span>
+          <span>or use common test account credentials:</span>
+          <span>Email: free@samuraijs.com</span>
+          <span>Password: free</span>
+        </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div>
             <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
@@ -88,7 +104,9 @@ export const Login = () => {
               <p className={styles.error}>{errors.captcha?.message}</p>
             </div>
           )}
-          <button disabled={isRequestProcessing}>LogIn</button>
+          <button className={styles.btn} disabled={isRequestProcessing}>
+            LogIn
+          </button>
         </form>
       </div>
     </div>
