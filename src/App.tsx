@@ -36,6 +36,7 @@ function App() {
             <Routes>
               <Route element={<ProtectedRoutes userIsAuth={true} redirectTo="/login" />}>
                 <Route path="/" element={<Profile />} />
+                <Route path="/social-network" element={<Profile />} />
                 <Route path="/profile/:userId?" element={<Profile />} />
                 <Route path="/dialogs/*" element={<Dialogs />} />
               </Route>
