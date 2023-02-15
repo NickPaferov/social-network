@@ -4,10 +4,11 @@ import { MyPosts } from "./MyPosts/MyPosts";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { getUserProfileTC, setUserProfileAC } from "../../bll/profile-reducer";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const Profile = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const userProfile = useAppSelector((state) => state.profilePage.userProfile);
   const authedUserId = useAppSelector((state) => state.auth.id);
@@ -16,11 +17,15 @@ export const Profile = () => {
   const { userId } = useParams(); // string || undefined
 
   useEffect(() => {
-    dispatch(getUserProfileTC(userId ? parseInt(userId) : 24855));
+    if (!authedUserId) {
+      navigate("/login");
+    } else {
+      dispatch(getUserProfileTC(userId ? parseInt(userId) : authedUserId));
+    }
     return () => {
       dispatch(setUserProfileAC(null));
     };
-  }, [dispatch, userId]);
+  }, [dispatch, navigate, authedUserId, userId]);
 
   if (!userProfile) {
     return <div className={styles.content}>Loading...</div>;

@@ -9,23 +9,27 @@ export const ProfileInfo = () => {
 
   return (
     <div>
-      <div className={styles.profileInfo}>
-        <img
-          className={styles.ava}
-          src={
-            userProfile?.photos.large
-              ? userProfile.photos.large
-              : userProfile?.photos.small
-              ? userProfile.photos.small
-              : defaultPhoto
-          }
-          alt="avatar"
-        />
+      {userProfile && (
         <div>
-          <span>{userProfile?.fullName}</span>
+          <div className={styles.profileInfo}>
+            <img
+              className={styles.ava}
+              src={
+                userProfile.photos.large
+                  ? userProfile.photos.large
+                  : userProfile.photos.small
+                  ? userProfile.photos.small
+                  : defaultPhoto
+              }
+              alt="avatar"
+            />
+            <div>
+              <span>{userProfile?.fullName}</span>
+            </div>
+          </div>
+          <ProfileStatus userId={userProfile.userId} />
         </div>
-      </div>
-      <ProfileStatus userId={userProfile?.userId || 24855} />
+      )}
     </div>
   );
 };

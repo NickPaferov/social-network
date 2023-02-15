@@ -45,8 +45,6 @@ export const setAuthedUserProfileAC = (authedUserProfile: UserProfileResponseTyp
   ({ type: "AUTH/SET-AUTHED-USER-PROFILE", authedUserProfile } as const);
 export const setCaptchaUrlAC = (captchaUrl: string | null) =>
   ({ type: "AUTH/SET-CAPTCHA", captchaUrl } as const);
-export const setIsLoginProcessingAC = (isLoginProcessing: boolean) =>
-  ({ type: "AUTH/SET-IS-LOGIN-PROCESSING", isLoginProcessing } as const);
 
 export const authMeTC = () => (dispatch: DispatchType) => {
   dispatch(setIsRequestProcessingStatusAC(true));
