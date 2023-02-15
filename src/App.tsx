@@ -34,8 +34,8 @@ function App() {
           </div>
           <div className={styles.content}>
             <Routes>
-              <Route path="/" element={<Profile />} />
               <Route element={<ProtectedRoutes userIsAuth={true} redirectTo="/login" />}>
+                <Route path="/" element={<Profile />} />
                 <Route path="/profile/:userId?" element={<Profile />} />
                 <Route path="/dialogs/*" element={<Dialogs />} />
               </Route>

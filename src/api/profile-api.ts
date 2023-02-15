@@ -41,5 +41,7 @@ type UserPhotosType = {
 export type UpdateStatusResponseType = {
   resultCode: number;
   messages: string[];
-  data: {};
+  data: UpdateStatusDataType;
 };
+
+type UpdateStatusDataType = {};

@@ -3,10 +3,12 @@ import styles from "./Header.module.css";
 import logoImg from "../../assets/images/logo.jpg";
 import defaultPhoto from "../../assets/images/defaultPhoto.jpg";
 import { Preloader } from "../common/Preloader/Preloader";
-import { useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { useNavigate } from "react-router-dom";
+import { logoutTC } from "../../bll/auth-reducer";
 
 export const Header = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
@@ -14,6 +16,10 @@ export const Header = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
   const login = useAppSelector((state) => state.auth.login);
   const authedUserPhoto = useAppSelector((state) => state.auth.authedUserProfile?.photos.large);
+
+  const handleLogout = () => {
+    dispatch(logoutTC());
+  };
 
   const handleMoveToLoginPage = () => {
     navigate("/login");
@@ -35,7 +41,7 @@ export const Header = () => {
             src={authedUserPhoto ? authedUserPhoto : defaultPhoto}
             alt="avatar"
           />
-          <button>LogOut</button>
+          <button onClick={handleLogout}>LogOut</button>
         </div>
       ) : (
         <button onClick={handleMoveToLoginPage}>LogIn</button>

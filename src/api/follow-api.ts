@@ -12,7 +12,6 @@ export const followAPI = {
 type FollowUnfollowResponseType = {
   data: FollowUnfollowDataType;
   messages: string[];
-  fieldsErrors: string[];
   resultCode: number;
 };
 

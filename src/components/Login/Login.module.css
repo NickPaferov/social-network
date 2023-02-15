@@ -1,3 +1,21 @@
 .content {
     margin: 30px;
 }
+
+.eye {
+    cursor: pointer;
+}
+
+.error {
+    color: red
+}
+
+.captchaBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.captcha {
+    margin: 10px 0;
+}
