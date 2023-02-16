@@ -1,5 +1,10 @@
-import { profileAPI, UserPhotosType, UserProfileResponseType } from "../api/profile-api";
-import { DispatchType } from "./store";
+import {
+  profileAPI,
+  UpdateProfileParamsType,
+  UserPhotosType,
+  UserProfileResponseType,
+} from "../api/profile-api";
+import { AppRootStateType, DispatchType } from "./store";
 import { setIsRequestProcessingStatusAC } from "./app-reducer";
 
 const initialState = {
@@ -85,6 +90,18 @@ export const updateAuthedUserPhotoTC = (file: any) => (dispatch: DispatchType) =
     dispatch(setIsRequestProcessingStatusAC(false));
   });
 };
+
+export const updateAuthedUserProfileTC =
+  (profile: UpdateProfileParamsType) =>
+  (dispatch: DispatchType, getState: () => AppRootStateType) => {
+    const userId = getState().profilePage.authedUserProfile?.userId;
+    dispatch(setIsRequestProcessingStatusAC(true));
+    profileAPI.updateUserProfile(profile).then((response) => {
+      if (response.data.resultCode === 0 && userId) {
+        dispatch(getUserProfileTC(userId));
+      }
+    });
+  };
 
 type PostType = {
   id: number;

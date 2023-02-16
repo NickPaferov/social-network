@@ -19,6 +19,9 @@ export const profileAPI = {
       },
     });
   },
+  updateUserProfile(profile: UpdateProfileParamsType) {
+    return instance.put<UpdateProfileResponseType>("profile", profile);
+  },
 };
 
 export type UserProfileResponseType = {
@@ -31,15 +34,15 @@ export type UserProfileResponseType = {
   photos: UserPhotosType;
 };
 
-type UserContactsType = {
-  facebook: string;
-  website?: string;
+export type UserContactsType = {
+  [facebook: string]: string;
+  website: string;
   vk: string;
   twitter: string;
   instagram: string;
-  youtube?: string;
+  youtube: string;
   github: string;
-  mainLink?: string;
+  mainLink: string;
 };
 
 export type UserPhotosType = {
@@ -62,3 +65,19 @@ type UpdatePhotoResponseType = {
     photos: UserPhotosType;
   };
 };
+
+export type UpdateProfileParamsType = {
+  fullName: string;
+  aboutMe: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  contacts: UserContactsType;
+};
+
+type UpdateProfileResponseType = {
+  resultCode: number;
+  messages: string[];
+  data: UpdateProfileDataType;
+};
+
+type UpdateProfileDataType = {};

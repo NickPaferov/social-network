@@ -3,6 +3,10 @@
     gap: 10px;
 }
 
+.title {
+    color: teal;
+}
+
 .pencil {
     cursor: pointer;
 }

@@ -46,7 +46,10 @@ export const ProfileStatus: FC<PropsType> = ({ userId }) => {
       )}
       {!editMode && !isRequestProcessing && (
         <div className={styles.status}>
-          <span>{userStatus || "-----"}</span>
+          <div>
+            <span className={styles.title}>Status: </span>
+            <b>{userStatus || "-----"}</b>
+          </div>
           {authedUserId === userId && (
             <span className={styles.pencil} onClick={handleActivateEditMode}>
               &#128393;

@@ -1,5 +1,11 @@
+.profileBlock {
+    display: flex;
+    gap: 20px;
+}
+
 .profileInfo {
     display: flex;
+    flex-direction: column;
 }
 
 .avaBlock {
@@ -11,4 +17,14 @@
 .ava {
     width: 200px;
     height: 200px;
+    border-radius: 5%;
+}
+
+.camera {
+    position: absolute;
+    margin: 168px 0 0 168px;
+    padding: 3px;
+    background-color: lavender;
+    border-radius: 25%;
+    cursor: pointer;
 }
