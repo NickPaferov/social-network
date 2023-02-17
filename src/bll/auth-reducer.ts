@@ -10,6 +10,7 @@ const initialState = {
   email: null as string | null,
   login: null as string | null,
   isAuth: false,
+  error: null as string | null,
   captchaUrl: null as string | null,
 };
 
@@ -17,6 +18,8 @@ export const authReducer = (state = initialState, action: AuthActionsType): Init
   switch (action.type) {
     case "AUTH/SET-AUTH-USER-DATA":
       return { ...state, ...action.payload };
+    case "AUTH/SET-ERROR":
+      return { ...state, error: action.error };
     case "AUTH/SET-CAPTCHA":
       return { ...state, captchaUrl: action.captchaUrl };
     default:
@@ -39,6 +42,7 @@ export const setAuthUserDataAC = (
       isAuth,
     },
   } as const);
+export const setErrorAC = (error: string | null) => ({ type: "AUTH/SET-ERROR", error } as const);
 export const setCaptchaUrlAC = (captchaUrl: string | null) =>
   ({ type: "AUTH/SET-CAPTCHA", captchaUrl } as const);
 
@@ -63,7 +67,11 @@ export const loginTC =
     authAPI.login(email, password, rememberMe, captcha).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(authMeTC());
+        dispatch(setErrorAC(null));
         dispatch(setCaptchaUrlAC(null));
+      }
+      if (response.data.resultCode === 1) {
+        dispatch(setErrorAC(response.data.messages[0]));
       }
       if (response.data.resultCode === 10) {
         dispatch(getCaptchaUrlTC());
@@ -95,4 +103,5 @@ type InitialStateType = typeof initialState;
 
 export type AuthActionsType =
   | ReturnType<typeof setAuthUserDataAC>
-  | ReturnType<typeof setCaptchaUrlAC>;
+  | ReturnType<typeof setCaptchaUrlAC>
+  | ReturnType<typeof setErrorAC>;

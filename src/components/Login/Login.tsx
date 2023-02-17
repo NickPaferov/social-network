@@ -27,6 +27,7 @@ const schema = yup
 export const Login = () => {
   const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const captchaUrl = useAppSelector((state) => state.auth.captchaUrl);
+  const error = useAppSelector((state) => state.auth.error);
 
   const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -93,6 +94,7 @@ export const Login = () => {
             />
             <span>Remember me</span>
           </div>
+          {error && <div className={styles.error}>{error}</div>}
           {captchaUrl && (
             <div className={styles.captchaBlock}>
               <img className={styles.captcha} src={captchaUrl} alt="anti-bot symbols" />
