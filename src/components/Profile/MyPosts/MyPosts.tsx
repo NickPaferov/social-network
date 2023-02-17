@@ -16,8 +16,10 @@ export const MyPosts = () => {
   };
 
   const handleAddPost = () => {
-    dispatch(addPostAC({ id: posts.length + 1, postText: newPostText, likesCount: 0 }));
-    setNewPostText("");
+    if (newPostText.trim().length) {
+      dispatch(addPostAC({ id: posts.length + 1, postText: newPostText, likesCount: 0 }));
+      setNewPostText("");
+    }
   };
 
   return (

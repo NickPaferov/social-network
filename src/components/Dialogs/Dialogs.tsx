@@ -18,8 +18,10 @@ export const Dialogs = () => {
   };
 
   const handleAddMessage = () => {
-    dispatch(sendMessageAC({ id: messages.length + 1, messageText: newMessageText }));
-    setNewMessageText("");
+    if (newMessageText.trim().length) {
+      dispatch(sendMessageAC({ id: messages.length + 1, messageText: newMessageText }));
+      setNewMessageText("");
+    }
   };
 
   return (

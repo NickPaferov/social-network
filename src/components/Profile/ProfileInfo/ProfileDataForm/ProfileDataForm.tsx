@@ -19,9 +19,9 @@ export type FormInputsType = {
 const schema = yup
   .object()
   .shape({
-    fullName: yup.string().required("Field is required"),
-    aboutMe: yup.string().required("Field is required"),
-    lookingForAJobDescription: yup.string().required("Field is required"),
+    fullName: yup.string().trim().required("Field is required"),
+    aboutMe: yup.string().trim().required("Field is required"),
+    lookingForAJobDescription: yup.string().trim().required("Field is required"),
     contacts: yup.object().shape({
       facebook: yup.string().url("Must be a valid url"),
       website: yup.string().url("Must be a valid url"),
