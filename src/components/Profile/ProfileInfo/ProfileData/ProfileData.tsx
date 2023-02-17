@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { useAppSelector } from "../../../../bll/store";
 import styles from "./ProfileData.module.css";
+import { UserContactsType } from "../../../../api/profile-api";
 
 type PropsType = {
   onEditMode: () => void;
@@ -37,10 +38,12 @@ export const ProfileData: FC<PropsType> = ({ onEditMode }) => {
               {Object.keys(currentUserProfile.contacts).map((key) => {
                 return (
                   <div key={key} className={styles.contacts}>
-                    {currentUserProfile.contacts[key] && (
+                    {currentUserProfile.contacts[key as keyof UserContactsType] && (
                       <div>
                         <span className={styles.title}>{key}: </span>
-                        <span>{currentUserProfile.contacts[key]}</span>
+                        <a href={currentUserProfile.contacts[key as keyof UserContactsType]}>
+                          {currentUserProfile.contacts[key as keyof UserContactsType]}
+                        </a>
                       </div>
                     )}
                   </div>

@@ -35,7 +35,7 @@ export type UserProfileResponseType = {
 };
 
 export type UserContactsType = {
-  [facebook: string]: string;
+  facebook: string;
   website: string;
   vk: string;
   twitter: string;
