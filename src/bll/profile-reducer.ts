@@ -9,11 +9,9 @@ import { setIsRequestProcessingStatusAC } from "./app-reducer";
 
 const initialState = {
   posts: [
-    { id: 1, postText: "Post5", likesCount: 11 },
-    { id: 2, postText: "Post4", likesCount: 7 },
-    { id: 3, postText: "Post3", likesCount: 16 },
-    { id: 4, postText: "Post2", likesCount: 5 },
-    { id: 5, postText: "Post1", likesCount: 10 },
+    { id: 3, postText: "Ready to take on a new challenge", likesCount: 19 },
+    { id: 2, postText: "Chose React and Redux", likesCount: 17 },
+    { id: 1, postText: "Starting to learn Javascript", likesCount: 25 },
   ] as PostType[],
   currentUserProfile: null as UserProfileResponseType | null,
   userStatus: "",
