@@ -24,3 +24,7 @@
     border: transparent;
     border-radius: 10%;
 }
+
+button, select {
+    cursor: pointer;
+}
