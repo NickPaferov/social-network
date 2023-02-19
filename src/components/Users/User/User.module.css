@@ -1,0 +1,21 @@
+.userArea {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.userData {
+    display: flex;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.userPhoto {
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
+    margin-right: 10px;
+}
