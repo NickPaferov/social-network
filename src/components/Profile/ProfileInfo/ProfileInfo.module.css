@@ -20,11 +20,14 @@
     border-radius: 5%;
 }
 
-.camera {
+.photoChanger {
     position: absolute;
     margin: 168px 0 0 168px;
     padding: 3px;
     background-color: lavender;
     border-radius: 25%;
+}
+
+.camera {
     cursor: pointer;
 }
