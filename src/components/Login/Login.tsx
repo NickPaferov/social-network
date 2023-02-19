@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { loginTC } from "../../bll/auth-reducer";
+import { Button } from "../common/Button/Button";
 
 type FormInputsType = {
   email: string;
@@ -106,9 +107,7 @@ export const Login = () => {
               <p className={styles.error}>{errors.captcha?.message}</p>
             </div>
           )}
-          <button className={styles.btn} disabled={isRequestProcessing}>
-            LogIn
-          </button>
+          <Button title={"LogIn"} disabled={isRequestProcessing} />
         </form>
       </div>
     </div>

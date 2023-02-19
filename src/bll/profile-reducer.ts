@@ -53,13 +53,18 @@ export const setUserStatusAC = (userStatus: string) =>
 export const setAuthedUserPhotoAC = (photos: UserPhotosType) =>
   ({ type: "PROFILE/SET-AUTHED-USER-PHOTO", photos } as const);
 
-export const getUserProfileTC = (userId: number) => (dispatch: DispatchType) => {
-  dispatch(setIsRequestProcessingStatusAC(true));
-  profileAPI.getUserProfile(userId).then((response) => {
-    dispatch(setCurrentUserProfileAC(response.data));
-    dispatch(setIsRequestProcessingStatusAC(false));
-  });
-};
+export const getUserProfileTC =
+  (userId: number) => (dispatch: DispatchType, getState: () => AppRootStateType) => {
+    const authedUserId = getState().auth.id;
+    dispatch(setIsRequestProcessingStatusAC(true));
+    profileAPI.getUserProfile(userId).then((response) => {
+      dispatch(setCurrentUserProfileAC(response.data));
+      if (userId === authedUserId) {
+        dispatch(setAuthedUserProfileAC(response.data));
+      }
+      dispatch(setIsRequestProcessingStatusAC(false));
+    });
+  };
 
 export const getUserStatusTC = (userId: number) => (dispatch: DispatchType) => {
   dispatch(setIsRequestProcessingStatusAC(true));

@@ -4,14 +4,16 @@ import { DialogItem } from "./DialogItem/DialogItem";
 import { Message } from "./Message/Message";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { sendMessageAC } from "../../bll/dialogs-reducer";
+import { Button } from "../common/Button/Button";
 
 export const Dialogs = () => {
   const dispatch = useAppDispatch();
 
-  const [newMessageText, setNewMessageText] = useState("");
-
   const dialogs = useAppSelector((state) => state.dialogsPage.dialogs);
   const messages = useAppSelector((state) => state.dialogsPage.messages);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+
+  const [newMessageText, setNewMessageText] = useState("");
 
   const handleChangeNewMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setNewMessageText(e.currentTarget.value);
@@ -44,9 +46,7 @@ export const Dialogs = () => {
             value={newMessageText}
             onChange={handleChangeNewMessageText}
           />
-          <button className={styles.btn} onClick={handleAddMessage}>
-            Send
-          </button>
+          <Button title={"Send"} disabled={isRequestProcessing} handleClick={handleAddMessage} />
         </div>
       </div>
     </div>

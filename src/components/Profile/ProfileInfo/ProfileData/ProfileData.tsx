@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { useAppSelector } from "../../../../bll/store";
 import styles from "./ProfileData.module.css";
 import { UserContactsType } from "../../../../api/profile-api";
+import { Button } from "../../../common/Button/Button";
 
 type PropsType = {
   onEditMode: () => void;
@@ -54,9 +55,7 @@ export const ProfileData: FC<PropsType> = ({ onEditMode }) => {
         </div>
       )}
       {currentUserId === authedUserId && (
-        <button disabled={isRequestProcessing} onClick={handleOnEditMode}>
-          Edit
-        </button>
+        <Button title={"Edit"} disabled={isRequestProcessing} handleClick={handleOnEditMode} />
       )}
     </div>
   );

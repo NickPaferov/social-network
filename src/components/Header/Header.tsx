@@ -6,6 +6,7 @@ import { Preloader } from "../common/Preloader/Preloader";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { useNavigate } from "react-router-dom";
 import { logoutTC } from "../../bll/auth-reducer";
+import { Button } from "../common/Button/Button";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +15,6 @@ export const Header = () => {
   const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
 
   const isAuth = useAppSelector((state) => state.auth.isAuth);
-  const login = useAppSelector((state) => state.auth.login);
   const authedUserProfile = useAppSelector((state) => state.profilePage.authedUserProfile);
 
   const handleLogout = () => {
@@ -34,8 +34,8 @@ export const Header = () => {
       </div>
       {isRequestProcessing && <Preloader />}
       {isAuth ? (
-        <div className={styles.user}>
-          <span className={styles.logIn}>{login}</span>
+        <div className={styles.authedUser}>
+          <span className={styles.authedUserName}>{authedUserProfile?.fullName}</span>
           <img
             className={styles.ava}
             src={
@@ -47,12 +47,14 @@ export const Header = () => {
             }
             alt="avatar"
           />
-          <button onClick={handleLogout} disabled={isRequestProcessing}>
-            LogOut
-          </button>
+          <Button title={"LogOut"} disabled={isRequestProcessing} handleClick={handleLogout} />
         </div>
       ) : (
-        <button onClick={handleMoveToLoginPage}>LogIn</button>
+        <Button
+          title={"LogIn"}
+          disabled={isRequestProcessing}
+          handleClick={handleMoveToLoginPage}
+        />
       )}
     </div>
   );

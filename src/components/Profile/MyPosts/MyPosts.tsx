@@ -3,11 +3,13 @@ import styles from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
 import { useAppDispatch, useAppSelector } from "../../../bll/store";
 import { addPostAC } from "../../../bll/profile-reducer";
+import { Button } from "../../common/Button/Button";
 
 export const MyPosts = () => {
   const dispatch = useAppDispatch();
 
   const posts = useAppSelector((state) => state.profilePage.posts);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
 
   const [newPostText, setNewPostText] = useState("");
 
@@ -32,9 +34,7 @@ export const MyPosts = () => {
           value={newPostText}
           onChange={handleChangeNewPostText}
         />
-        <button className={styles.btn} onClick={handleAddPost}>
-          Add post
-        </button>
+        <Button title={"Add post"} disabled={isRequestProcessing} handleClick={handleAddPost} />
       </div>
       {posts.map((post) => (
         <Post key={post.id} postText={post.postText} likesCount={post.likesCount} />

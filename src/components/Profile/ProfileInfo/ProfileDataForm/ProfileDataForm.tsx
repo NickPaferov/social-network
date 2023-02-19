@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import styles from "./ProfileDataForm.module.css";
 import { UserContactsType } from "../../../../api/profile-api";
 import { ProfileDataFormError } from "./ProfileDataFormErrors/ProfileDataFormError";
+import { Button } from "../../../common/Button/Button";
 
 export type FormInputsType = {
   fullName: string;
@@ -43,6 +44,7 @@ export const ProfileDataForm: FC<PropsType> = ({ offEditMode }) => {
   const dispatch = useAppDispatch();
 
   const currentUserProfile = useAppSelector((state) => state.profilePage.currentUserProfile);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
 
   const {
     register,
@@ -116,7 +118,7 @@ export const ProfileDataForm: FC<PropsType> = ({ offEditMode }) => {
               })}
             </div>
           </div>
-          <button>Save</button>
+          <Button title={"Save"} disabled={isRequestProcessing} />
         </form>
       )}
     </div>

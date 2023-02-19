@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.user {
+.authedUser {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -30,7 +30,9 @@
     border-radius: 50%;
 }
 
-.logIn {
+.authedUserName {
+    font-weight: bold;
+    font-size: 20px;
     color: white;
 }
 

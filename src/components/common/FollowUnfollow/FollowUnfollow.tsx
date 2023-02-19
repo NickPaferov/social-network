@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import styles from "./FollowUnfollow.module.css";
 import { followUserTC, unfollowUserTC } from "../../../bll/users-reducer";
 import { useAppDispatch, useAppSelector } from "../../../bll/store";
+import { Button } from "../Button/Button";
 
 type PropsType = {
   followed: boolean;
@@ -26,28 +26,15 @@ export const FollowUnfollow: FC<PropsType> = ({ followed, userId }) => {
     dispatch(followUserTC(userId));
   };
 
+  const isDisabledBtn =
+    isPaginationParamsLoading || usersInFollowingProcess.some((id) => id === userId);
+
   return (
     <div>
       {followed ? (
-        <button
-          className={styles.btn}
-          disabled={
-            isPaginationParamsLoading || usersInFollowingProcess.some((id) => id === userId)
-          }
-          onClick={handleUnfollowUser}
-        >
-          Unfollow
-        </button>
+        <Button title={"Unfollow"} disabled={isDisabledBtn} handleClick={handleUnfollowUser} />
       ) : (
-        <button
-          className={styles.btn}
-          disabled={
-            isPaginationParamsLoading || usersInFollowingProcess.some((id) => id === userId)
-          }
-          onClick={handleFollowUser}
-        >
-          Follow
-        </button>
+        <Button title={"Follow"} disabled={isDisabledBtn} handleClick={handleFollowUser} />
       )}
     </div>
   );
