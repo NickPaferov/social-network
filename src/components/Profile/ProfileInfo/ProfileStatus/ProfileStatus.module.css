@@ -10,3 +10,7 @@
 .pencil {
     cursor: pointer;
 }
+
+.error {
+    color: red;
+}

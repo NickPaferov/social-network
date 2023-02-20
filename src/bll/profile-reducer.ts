@@ -16,6 +16,7 @@ const initialState = {
   currentUserProfile: null as UserProfileResponseType | null,
   userStatus: "",
   authedUserProfile: null as UserProfileResponseType | null,
+  statusError: null as string | null,
 };
 
 export const profileReducer = (
@@ -38,6 +39,8 @@ export const profileReducer = (
           ? { ...state.authedUserProfile, photos: action.photos }
           : state.authedUserProfile,
       };
+    case "PROFILE/SET-STATUS-ERROR":
+      return { ...state, statusError: action.statusError };
     default:
       return state;
   }
@@ -52,6 +55,8 @@ export const setUserStatusAC = (userStatus: string) =>
   ({ type: "PROFILE/SET-USER-STATUS", userStatus } as const);
 export const setAuthedUserPhotoAC = (photos: UserPhotosType) =>
   ({ type: "PROFILE/SET-AUTHED-USER-PHOTO", photos } as const);
+export const setStatusErrorAC = (statusError: string | null) =>
+  ({ type: "PROFILE/SET-STATUS-ERROR", statusError } as const);
 
 export const getUserProfileTC =
   (userId: number) => (dispatch: DispatchType, getState: () => AppRootStateType) => {
@@ -78,7 +83,14 @@ export const updateAuthedUserStatusTC = (userStatus: string) => (dispatch: Dispa
   dispatch(setIsRequestProcessingStatusAC(true));
   profileAPI.updateUserStatus(userStatus).then((response) => {
     if (response.data.resultCode === 0) {
+      dispatch(setStatusErrorAC(null));
       dispatch(setUserStatusAC(userStatus));
+    }
+    if (response.data.resultCode === 1) {
+      dispatch(setStatusErrorAC(response.data.messages[0]));
+      setTimeout(() => {
+        dispatch(setStatusErrorAC(null));
+      }, 3000);
     }
     dispatch(setIsRequestProcessingStatusAC(false));
   });
@@ -117,6 +129,7 @@ export type ProfileActionsType =
   | ReturnType<typeof setCurrentUserProfileAC>
   | ReturnType<typeof setUserStatusAC>
   | ReturnType<typeof setAuthedUserPhotoAC>
+  | ReturnType<typeof setStatusErrorAC>
   | SetAuthedUserProfileType;
 
 export type SetAuthedUserProfileType = ReturnType<typeof setAuthedUserProfileAC>;

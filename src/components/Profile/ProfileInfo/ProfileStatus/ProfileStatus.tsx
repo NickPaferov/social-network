@@ -9,8 +9,10 @@ export const ProfileStatus: FC<PropsType> = ({ userId }) => {
   const dispatch = useAppDispatch();
 
   const authedUserId = useAppSelector((state) => state.auth.id);
+  const currentUserId = useAppSelector((state) => state.profilePage.currentUserProfile?.userId);
   const userStatus = useAppSelector((state) => state.profilePage.userStatus);
   const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const statusError = useAppSelector((state) => state.profilePage.statusError);
 
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState<string>(userStatus);
@@ -58,6 +60,9 @@ export const ProfileStatus: FC<PropsType> = ({ userId }) => {
         </div>
       )}
       {isRequestProcessing && <span>Loading...</span>}
+      {authedUserId === currentUserId && statusError && (
+        <div className={styles.error}>{statusError}</div>
+      )}
     </div>
   );
 };
