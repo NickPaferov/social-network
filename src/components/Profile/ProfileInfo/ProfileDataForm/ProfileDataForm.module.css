@@ -9,3 +9,8 @@
 .error {
     color: red;
 }
+
+.btnBlock{
+    display: flex;
+    gap: 20px;
+}

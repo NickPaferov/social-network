@@ -5,6 +5,7 @@ import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { getUserProfileTC, setCurrentUserProfileAC } from "../../bll/profile-reducer";
 import { useNavigate, useParams } from "react-router-dom";
+import { setAppErrorAC } from "../../bll/app-reducer";
 
 export const Profile = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ export const Profile = () => {
     }
     return () => {
       dispatch(setCurrentUserProfileAC(null));
+      dispatch(setAppErrorAC(null));
     };
   }, [dispatch, navigate, authedUserId, userId]);
 

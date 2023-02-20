@@ -4,8 +4,9 @@ import {
   UserPhotosType,
   UserProfileResponseType,
 } from "../api/profile-api";
-import { AppRootStateType, DispatchType } from "./store";
+import { AppRootStateType, AppThunkType } from "./store";
 import { setIsRequestProcessingStatusAC } from "./app-reducer";
+import { handleError } from "../utils/error-util";
 
 const initialState = {
   posts: [
@@ -59,63 +60,91 @@ export const setStatusErrorAC = (statusError: string | null) =>
   ({ type: "PROFILE/SET-STATUS-ERROR", statusError } as const);
 
 export const getUserProfileTC =
-  (userId: number) => (dispatch: DispatchType, getState: () => AppRootStateType) => {
+  (userId: number): AppThunkType =>
+  async (dispatch, getState: () => AppRootStateType) => {
     const authedUserId = getState().auth.id;
     dispatch(setIsRequestProcessingStatusAC(true));
-    profileAPI.getUserProfile(userId).then((response) => {
+    try {
+      const response = await profileAPI.getUserProfile(userId);
       dispatch(setCurrentUserProfileAC(response.data));
       if (userId === authedUserId) {
         dispatch(setAuthedUserProfileAC(response.data));
       }
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
       dispatch(setIsRequestProcessingStatusAC(false));
-    });
+    }
   };
 
-export const getUserStatusTC = (userId: number) => (dispatch: DispatchType) => {
-  dispatch(setIsRequestProcessingStatusAC(true));
-  profileAPI.getUserStatus(userId).then((response) => {
-    dispatch(setUserStatusAC(response.data));
-    dispatch(setIsRequestProcessingStatusAC(false));
-  });
-};
-
-export const updateAuthedUserStatusTC = (userStatus: string) => (dispatch: DispatchType) => {
-  dispatch(setIsRequestProcessingStatusAC(true));
-  profileAPI.updateUserStatus(userStatus).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(setStatusErrorAC(null));
-      dispatch(setUserStatusAC(userStatus));
+export const getUserStatusTC =
+  (userId: number): AppThunkType =>
+  async (dispatch) => {
+    dispatch(setIsRequestProcessingStatusAC(true));
+    try {
+      const response = await profileAPI.getUserStatus(userId);
+      dispatch(setUserStatusAC(response.data));
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setIsRequestProcessingStatusAC(false));
     }
-    if (response.data.resultCode === 1) {
-      dispatch(setStatusErrorAC(response.data.messages[0]));
-      setTimeout(() => {
+  };
+
+export const updateAuthedUserStatusTC =
+  (userStatus: string): AppThunkType =>
+  async (dispatch) => {
+    dispatch(setIsRequestProcessingStatusAC(true));
+    try {
+      const response = await profileAPI.updateUserStatus(userStatus);
+      if (response.data.resultCode === 0) {
         dispatch(setStatusErrorAC(null));
-      }, 3000);
+        dispatch(setUserStatusAC(userStatus));
+      }
+      if (response.data.resultCode === 1) {
+        dispatch(setStatusErrorAC(response.data.messages[0]));
+        setTimeout(() => {
+          dispatch(setStatusErrorAC(null));
+        }, 3000);
+      }
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setIsRequestProcessingStatusAC(false));
     }
-    dispatch(setIsRequestProcessingStatusAC(false));
-  });
-};
+  };
 
-export const updateAuthedUserPhotoTC = (file: any) => (dispatch: DispatchType) => {
-  dispatch(setIsRequestProcessingStatusAC(true));
-  profileAPI.updateUserPhoto(file).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(setAuthedUserPhotoAC(response.data.data.photos));
+export const updateAuthedUserPhotoTC =
+  (file: any): AppThunkType =>
+  async (dispatch) => {
+    dispatch(setIsRequestProcessingStatusAC(true));
+    try {
+      const response = await profileAPI.updateUserPhoto(file);
+      if (response.data.resultCode === 0) {
+        dispatch(setAuthedUserPhotoAC(response.data.data.photos));
+      }
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setIsRequestProcessingStatusAC(false));
     }
-    dispatch(setIsRequestProcessingStatusAC(false));
-  });
-};
+  };
 
 export const updateAuthedUserProfileTC =
-  (profile: UpdateProfileParamsType) =>
-  (dispatch: DispatchType, getState: () => AppRootStateType) => {
+  (profile: UpdateProfileParamsType): AppThunkType =>
+  async (dispatch, getState: () => AppRootStateType) => {
     const userId = getState().profilePage.authedUserProfile?.userId;
     dispatch(setIsRequestProcessingStatusAC(true));
-    profileAPI.updateUserProfile(profile).then((response) => {
+    try {
+      const response = await profileAPI.updateUserProfile(profile);
       if (response.data.resultCode === 0 && userId) {
         dispatch(getUserProfileTC(userId));
       }
-    });
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setIsRequestProcessingStatusAC(false));
+    }
   };
 
 type PostType = {

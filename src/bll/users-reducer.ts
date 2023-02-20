@@ -1,7 +1,8 @@
 import { usersAPI, UserType } from "../api/users-api";
 import { setIsRequestProcessingStatusAC } from "./app-reducer";
-import { DispatchType } from "./store";
+import { AppThunkType, DispatchType } from "./store";
 import { followAPI } from "../api/follow-api";
+import { handleError } from "../utils/error-util";
 
 const initialState = {
   users: [] as UserType[],
@@ -66,40 +67,57 @@ export const setUsersInFollowingProcessAC = (isFollowProcessing: boolean, userId
   ({ type: "USERS/SET-USERS-IN-FOLLOWING-PROCESS", isFollowProcessing, userId } as const);
 
 export const getUsersTC =
-  (currentPage: number, usersCountPerPage: number) => (dispatch: DispatchType) => {
+  (currentPage: number, usersCountPerPage: number): AppThunkType =>
+  async (dispatch: DispatchType) => {
     dispatch(setIsRequestProcessingStatusAC(true));
     dispatch(setIsPaginationParamsLoadingAC(true));
-    usersAPI.getUsers(currentPage, usersCountPerPage).then((response) => {
+    try {
+      const response = await usersAPI.getUsers(currentPage, usersCountPerPage);
       dispatch(setUsersAC(response.data.items));
       dispatch(setTotalUsersCountAC(response.data.totalCount));
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
       dispatch(setIsPaginationParamsLoadingAC(false));
       dispatch(setIsRequestProcessingStatusAC(false));
-    });
+    }
   };
 
-export const followUserTC = (userId: number) => (dispatch: DispatchType) => {
-  dispatch(setIsRequestProcessingStatusAC(true));
-  dispatch(setUsersInFollowingProcessAC(true, userId));
-  followAPI.follow(userId).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(followUserAC(userId));
+export const followUserTC =
+  (userId: number): AppThunkType =>
+  async (dispatch) => {
+    dispatch(setIsRequestProcessingStatusAC(true));
+    dispatch(setUsersInFollowingProcessAC(true, userId));
+    try {
+      const response = await followAPI.follow(userId);
+      if (response.data.resultCode === 0) {
+        dispatch(followUserAC(userId));
+      }
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setUsersInFollowingProcessAC(false, userId));
+      dispatch(setIsRequestProcessingStatusAC(false));
     }
-    dispatch(setUsersInFollowingProcessAC(false, userId));
-    dispatch(setIsRequestProcessingStatusAC(false));
-  });
-};
+  };
 
-export const unfollowUserTC = (userId: number) => (dispatch: DispatchType) => {
-  dispatch(setIsRequestProcessingStatusAC(true));
-  dispatch(setUsersInFollowingProcessAC(true, userId));
-  followAPI.unfollow(userId).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(unfollowUserAC(userId));
+export const unfollowUserTC =
+  (userId: number): AppThunkType =>
+  async (dispatch: DispatchType) => {
+    dispatch(setIsRequestProcessingStatusAC(true));
+    dispatch(setUsersInFollowingProcessAC(true, userId));
+    try {
+      const response = await followAPI.unfollow(userId);
+      if (response.data.resultCode === 0) {
+        dispatch(unfollowUserAC(userId));
+      }
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setUsersInFollowingProcessAC(false, userId));
+      dispatch(setIsRequestProcessingStatusAC(false));
     }
-    dispatch(setUsersInFollowingProcessAC(false, userId));
-    dispatch(setIsRequestProcessingStatusAC(false));
-  });
-};
+  };
 
 type InitialStateType = typeof initialState;
 export type UsersActionsType =

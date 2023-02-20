@@ -4,6 +4,7 @@ import { getUsersTC, setCurrentPageAC, setUsersCountPerPageAC } from "../../bll/
 import styles from "./Users.module.css";
 import { PaginationBlock } from "../common/PaginationBlock/PaginationBlock";
 import { User } from "./User/User";
+import { setAppErrorAC } from "../../bll/app-reducer";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,9 @@ export const Users = () => {
 
   useEffect(() => {
     dispatch(getUsersTC(currentPage, usersCountPerPage));
+    return () => {
+      dispatch(setAppErrorAC(null));
+    };
   }, [dispatch, totalUsersCount, currentPage, usersCountPerPage]);
 
   return (

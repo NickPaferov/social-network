@@ -1,16 +1,17 @@
 import { authAPI } from "../api/auth-api";
 import { profileAPI } from "../api/profile-api";
-import { DispatchType } from "./store";
+import { AppThunkType } from "./store";
 import { setIsRequestProcessingStatusAC } from "./app-reducer";
 import { securityAPI } from "../api/security-api";
 import { setAuthedUserProfileAC } from "./profile-reducer";
+import { handleError } from "../utils/error-util";
 
 const initialState = {
   id: null as number | null,
   email: null as string | null,
   login: null as string | null,
   isAuth: false,
-  error: null as string | null,
+  loginError: null as string | null,
   captchaUrl: null as string | null,
 };
 
@@ -18,8 +19,8 @@ export const authReducer = (state = initialState, action: AuthActionsType): Init
   switch (action.type) {
     case "AUTH/SET-AUTH-USER-DATA":
       return { ...state, ...action.payload };
-    case "AUTH/SET-ERROR":
-      return { ...state, error: action.error };
+    case "AUTH/SET-LOGIN-ERROR":
+      return { ...state, loginError: action.loginError };
     case "AUTH/SET-CAPTCHA":
       return { ...state, captchaUrl: action.captchaUrl };
     default:
@@ -42,61 +43,77 @@ export const setAuthUserDataAC = (
       isAuth,
     },
   } as const);
-export const setErrorAC = (error: string | null) => ({ type: "AUTH/SET-ERROR", error } as const);
+export const setLoginErrorAC = (loginError: string | null) =>
+  ({ type: "AUTH/SET-LOGIN-ERROR", loginError } as const);
 export const setCaptchaUrlAC = (captchaUrl: string | null) =>
   ({ type: "AUTH/SET-CAPTCHA", captchaUrl } as const);
 
-export const authMeTC = () => (dispatch: DispatchType) => {
+export const authMeTC = (): AppThunkType => async (dispatch) => {
   dispatch(setIsRequestProcessingStatusAC(true));
-  return authAPI.authMe().then((response) => {
+  try {
+    const response = await authAPI.authMe();
     if (response.data.resultCode === 0) {
       const { id, login, email } = response.data.data;
       dispatch(setAuthUserDataAC(id, login, email, true));
-      profileAPI.getUserProfile(response.data.data.id).then((response) => {
-        dispatch(setAuthedUserProfileAC(response.data));
-      });
+      const res = await profileAPI.getUserProfile(response.data.data.id);
+      dispatch(setAuthedUserProfileAC(res.data));
     }
+  } catch (e) {
+    handleError(e, dispatch);
+  } finally {
     dispatch(setIsRequestProcessingStatusAC(false));
-  });
+  }
 };
 
 export const loginTC =
-  (email: string, password: string, rememberMe: boolean, captcha: string) =>
-  (dispatch: DispatchType) => {
+  (email: string, password: string, rememberMe: boolean, captcha: string): AppThunkType =>
+  async (dispatch) => {
     dispatch(setIsRequestProcessingStatusAC(true));
-    authAPI.login(email, password, rememberMe, captcha).then((response) => {
+    try {
+      const response = await authAPI.login(email, password, rememberMe, captcha);
       if (response.data.resultCode === 0) {
         dispatch(authMeTC());
-        dispatch(setErrorAC(null));
+        dispatch(setLoginErrorAC(null));
         dispatch(setCaptchaUrlAC(null));
       }
       if (response.data.resultCode === 1) {
-        dispatch(setErrorAC(response.data.messages[0]));
+        dispatch(setLoginErrorAC(response.data.messages[0]));
       }
       if (response.data.resultCode === 10) {
         dispatch(getCaptchaUrlTC());
       }
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
       dispatch(setIsRequestProcessingStatusAC(false));
-    });
+    }
   };
 
-export const getCaptchaUrlTC = () => (dispatch: DispatchType) => {
+export const getCaptchaUrlTC = (): AppThunkType => async (dispatch) => {
   dispatch(setIsRequestProcessingStatusAC(true));
-  securityAPI.getCaptchaUrl().then((response) => {
+  try {
+    const response = await securityAPI.getCaptchaUrl();
     dispatch(setCaptchaUrlAC(response.data.url));
+  } catch (e) {
+    handleError(e, dispatch);
+  } finally {
     dispatch(setIsRequestProcessingStatusAC(false));
-  });
+  }
 };
 
-export const logoutTC = () => (dispatch: DispatchType) => {
+export const logoutTC = (): AppThunkType => async (dispatch) => {
   dispatch(setIsRequestProcessingStatusAC(true));
-  authAPI.logout().then((response) => {
+  try {
+    const response = await authAPI.logout();
     if (response.data.resultCode === 0) {
       dispatch(setAuthUserDataAC(null, null, null, false));
       dispatch(setAuthedUserProfileAC(null));
     }
+  } catch (e) {
+    handleError(e, dispatch);
+  } finally {
     dispatch(setIsRequestProcessingStatusAC(false));
-  });
+  }
 };
 
 type InitialStateType = typeof initialState;
@@ -104,4 +121,4 @@ type InitialStateType = typeof initialState;
 export type AuthActionsType =
   | ReturnType<typeof setAuthUserDataAC>
   | ReturnType<typeof setCaptchaUrlAC>
-  | ReturnType<typeof setErrorAC>;
+  | ReturnType<typeof setLoginErrorAC>;

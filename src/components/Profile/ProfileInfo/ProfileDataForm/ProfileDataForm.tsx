@@ -118,7 +118,10 @@ export const ProfileDataForm: FC<PropsType> = ({ offEditMode }) => {
               })}
             </div>
           </div>
-          <Button title={"Save"} disabled={isRequestProcessing} />
+          <div className={styles.btnBlock}>
+            <Button title={"Cancel"} disabled={isRequestProcessing} handleClick={offEditMode} />
+            <Button title={"Save"} disabled={isRequestProcessing} />
+          </div>
         </form>
       )}
     </div>

@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { useNavigate } from "react-router-dom";
 import { logoutTC } from "../../bll/auth-reducer";
 import { Button } from "../common/Button/Button";
+import { AppError } from "../common/AppError/AppError";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +34,7 @@ export const Header = () => {
         <span className={styles.text}>uch</span>
       </div>
       {isRequestProcessing && <Preloader />}
+      <AppError />
       {isAuth ? (
         <div className={styles.authedUser}>
           <span className={styles.authedUserName}>{authedUserProfile?.fullName}</span>

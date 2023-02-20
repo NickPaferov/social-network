@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { loginTC } from "../../bll/auth-reducer";
 import { Button } from "../common/Button/Button";
+import { setAppErrorAC } from "../../bll/app-reducer";
 
 type FormInputsType = {
   email: string;
@@ -26,11 +27,12 @@ const schema = yup
   .required();
 
 export const Login = () => {
+  const dispatch = useAppDispatch();
+
   const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const captchaUrl = useAppSelector((state) => state.auth.captchaUrl);
-  const error = useAppSelector((state) => state.auth.error);
+  const loginError = useAppSelector((state) => state.auth.loginError);
 
-  const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const {
@@ -48,6 +50,12 @@ export const Login = () => {
   const handlePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(setAppErrorAC(null));
+    };
+  }, [dispatch]);
 
   return (
     <div className={styles.content}>
@@ -95,7 +103,7 @@ export const Login = () => {
             />
             <span>Remember me</span>
           </div>
-          {error && <div className={styles.error}>{error}</div>}
+          {loginError && <div className={styles.error}>{loginError}</div>}
           {captchaUrl && (
             <div className={styles.captchaBlock}>
               <img className={styles.captcha} src={captchaUrl} alt="anti-bot symbols" />
