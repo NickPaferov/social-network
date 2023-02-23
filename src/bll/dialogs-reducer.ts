@@ -30,11 +30,11 @@ export const dialogsReducer = (
 
 export const sendMessageAC = (message: MessageType) => ({ type: "SEND-MESSAGE", message } as const);
 
-type DialogType = {
+export type DialogType = {
   id: number;
   name: string;
 };
-type MessageType = {
+export type MessageType = {
   id: number;
   messageText: string;
 };

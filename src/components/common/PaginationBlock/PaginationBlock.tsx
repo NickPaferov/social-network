@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import styles from "./PaginationBlock.module.css";
 import { useAppSelector } from "../../../bll/store";
+import { selectRequestProcessingStatus } from "../../../utils/selectors";
 
 type PropsType = {
   totalItemsCount: number;
@@ -21,7 +22,7 @@ export const PaginationBlock: FC<PropsType> = ({
   onChangeCurrentPage,
   onChangeItemsCountPerPage,
 }) => {
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const [pagesRangeNumber, setPagesRangeNumber] = useState(1);
 

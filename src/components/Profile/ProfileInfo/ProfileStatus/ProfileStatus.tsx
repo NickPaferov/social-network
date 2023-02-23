@@ -2,17 +2,24 @@ import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import styles from "./ProfileStatus.module.css";
 import { useAppDispatch, useAppSelector } from "../../../../bll/store";
 import { getUserStatusTC, updateAuthedUserStatusTC } from "../../../../bll/profile-reducer";
+import {
+  selectAuthedUserId,
+  selectCurrentUserId,
+  selectRequestProcessingStatus,
+  selectStatusError,
+  selectUserStatus,
+} from "../../../../utils/selectors";
 
 type PropsType = { userId: number };
 
 export const ProfileStatus: FC<PropsType> = ({ userId }) => {
   const dispatch = useAppDispatch();
 
-  const authedUserId = useAppSelector((state) => state.auth.id);
-  const currentUserId = useAppSelector((state) => state.profilePage.currentUserProfile?.userId);
-  const userStatus = useAppSelector((state) => state.profilePage.userStatus);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
-  const statusError = useAppSelector((state) => state.profilePage.statusError);
+  const authedUserId = useAppSelector(selectAuthedUserId);
+  const currentUserId = useAppSelector(selectCurrentUserId);
+  const userStatus = useAppSelector(selectUserStatus);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
+  const statusError = useAppSelector(selectStatusError);
 
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState<string>(userStatus);

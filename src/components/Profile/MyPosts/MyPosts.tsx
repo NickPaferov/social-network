@@ -4,12 +4,13 @@ import { Post } from "./Post/Post";
 import { useAppDispatch, useAppSelector } from "../../../bll/store";
 import { addPostAC } from "../../../bll/profile-reducer";
 import { Button } from "../../common/Button/Button";
+import { selectPosts, selectRequestProcessingStatus } from "../../../utils/selectors";
 
 export const MyPosts = () => {
   const dispatch = useAppDispatch();
 
-  const posts = useAppSelector((state) => state.profilePage.posts);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const posts = useAppSelector(selectPosts);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const [newPostText, setNewPostText] = useState("");
 

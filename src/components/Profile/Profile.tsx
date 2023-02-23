@@ -6,14 +6,19 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { getUserProfileTC, setCurrentUserProfileAC } from "../../bll/profile-reducer";
 import { useNavigate, useParams } from "react-router-dom";
 import { setAppErrorAC } from "../../bll/app-reducer";
+import {
+  selectAuthedUserId,
+  selectCurrentUserId,
+  selectCurrentUserProfile,
+} from "../../utils/selectors";
 
 export const Profile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const currentUserProfile = useAppSelector((state) => state.profilePage.currentUserProfile);
-  const authedUserId = useAppSelector((state) => state.auth.id);
-  const currentUserId = useAppSelector((state) => state.profilePage.currentUserProfile?.userId);
+  const currentUserProfile = useAppSelector(selectCurrentUserProfile);
+  const authedUserId = useAppSelector(selectAuthedUserId);
+  const currentUserId = useAppSelector(selectCurrentUserId);
 
   const { userId } = useParams(); // string || undefined
 

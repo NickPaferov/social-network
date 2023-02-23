@@ -1,25 +1,25 @@
 import React, { useEffect } from "react";
-import "./App.css";
-import { Profile } from "./components/Profile/Profile";
-import { Header } from "./components/Header/Header";
-import { Navbar } from "./components/Navbar/Navbar";
+import { Profile } from "../Profile/Profile";
+import { Header } from "../Header/Header";
+import { Navbar } from "../Navbar/Navbar";
 import styles from "./App.module.css";
-import { Dialogs } from "./components/Dialogs/Dialogs";
+import { Dialogs } from "../Dialogs/Dialogs";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { News } from "./components/News/News";
-import { Music } from "./components/Music/Music";
-import { Settings } from "./components/Settings/Settings";
-import { Users } from "./components/Users/Users";
-import { useAppDispatch, useAppSelector } from "./bll/store";
-import { Login } from "./components/Login/Login";
-import { ProtectedRoutes } from "./utils/ProtectedRoutes";
-import { Preloader } from "./components/common/Preloader/Preloader";
-import { initializeAppTC } from "./bll/app-reducer";
+import { News } from "../News/News";
+import { Music } from "../Music/Music";
+import { Settings } from "../Settings/Settings";
+import { Users } from "../Users/Users";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { Login } from "../Login/Login";
+import { ProtectedRoutes } from "../../utils/ProtectedRoutes";
+import { Preloader } from "../common/Preloader/Preloader";
+import { initializeAppTC } from "../../bll/app-reducer";
+import { selectAppInitStatus } from "../../utils/selectors";
 
 function App() {
   const dispatch = useAppDispatch();
 
-  const isAppInitialized = useAppSelector((state) => state.app.isInitialized);
+  const isAppInitialized = useAppSelector(selectAppInitStatus);
 
   useEffect(() => {
     dispatch(initializeAppTC());

@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styles from "./Post.module.css";
 import defaultPhoto from "../../../../assets/images/defaultPhoto.jpg";
 import { useAppSelector } from "../../../../bll/store";
+import { selectAuthedUserProfilePhotos } from "../../../../utils/selectors";
 
 type PropsType = {
   postText: string;
@@ -9,9 +10,7 @@ type PropsType = {
 };
 
 export const Post: FC<PropsType> = ({ postText, likesCount }) => {
-  const authedUserProfilePhotos = useAppSelector(
-    (state) => state.profilePage.authedUserProfile?.photos
-  );
+  const authedUserProfilePhotos = useAppSelector(selectAuthedUserProfilePhotos);
 
   return (
     <div className={styles.post}>

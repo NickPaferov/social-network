@@ -147,7 +147,7 @@ export const updateAuthedUserProfileTC =
     }
   };
 
-type PostType = {
+export type PostType = {
   id: number;
   postText: string;
   likesCount: number;

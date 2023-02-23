@@ -6,14 +6,20 @@ import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
 import { updateAuthedUserPhotoTC } from "../../../bll/profile-reducer";
 import { ProfileData } from "./ProfileData/ProfileData";
 import { ProfileDataForm } from "./ProfileDataForm/ProfileDataForm";
+import {
+  selectAuthedUserId,
+  selectAuthedUserProfile,
+  selectCurrentUserId,
+  selectCurrentUserProfile,
+} from "../../../utils/selectors";
 
 export const ProfileInfo = () => {
   const dispatch = useAppDispatch();
 
-  const currentUserProfile = useAppSelector((state) => state.profilePage.currentUserProfile);
-  const authedUserProfile = useAppSelector((state) => state.profilePage.authedUserProfile);
-  const currentUserId = useAppSelector((state) => state.profilePage.currentUserProfile?.userId);
-  const authedUserId = useAppSelector((state) => state.auth.id);
+  const currentUserProfile = useAppSelector(selectCurrentUserProfile);
+  const authedUserProfile = useAppSelector(selectAuthedUserProfile);
+  const currentUserId = useAppSelector(selectCurrentUserId);
+  const authedUserId = useAppSelector(selectAuthedUserId);
 
   const [editMode, setEditMode] = useState(false);
 

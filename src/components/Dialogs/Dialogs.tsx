@@ -5,13 +5,18 @@ import { Message } from "./Message/Message";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { sendMessageAC } from "../../bll/dialogs-reducer";
 import { Button } from "../common/Button/Button";
+import {
+  selectDialogs,
+  selectMessages,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 
 export const Dialogs = () => {
   const dispatch = useAppDispatch();
 
-  const dialogs = useAppSelector((state) => state.dialogsPage.dialogs);
-  const messages = useAppSelector((state) => state.dialogsPage.messages);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const dialogs = useAppSelector(selectDialogs);
+  const messages = useAppSelector(selectMessages);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const [newMessageText, setNewMessageText] = useState("");
 

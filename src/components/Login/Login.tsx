@@ -7,6 +7,11 @@ import { useForm } from "react-hook-form";
 import { loginTC } from "../../bll/auth-reducer";
 import { Button } from "../common/Button/Button";
 import { setAppErrorAC } from "../../bll/app-reducer";
+import {
+  selectCaptchaUrl,
+  selectLoginError,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 
 type FormInputsType = {
   email: string;
@@ -29,9 +34,9 @@ const schema = yup
 export const Login = () => {
   const dispatch = useAppDispatch();
 
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
-  const captchaUrl = useAppSelector((state) => state.auth.captchaUrl);
-  const loginError = useAppSelector((state) => state.auth.loginError);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
+  const captchaUrl = useAppSelector(selectCaptchaUrl);
+  const loginError = useAppSelector(selectLoginError);
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 

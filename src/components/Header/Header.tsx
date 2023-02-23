@@ -8,15 +8,19 @@ import { useNavigate } from "react-router-dom";
 import { logoutTC } from "../../bll/auth-reducer";
 import { Button } from "../common/Button/Button";
 import { AppError } from "../common/AppError/AppError";
+import {
+  selectAuthedUserProfile,
+  selectAuthStatus,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
-
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
-  const authedUserProfile = useAppSelector((state) => state.profilePage.authedUserProfile);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
+  const isAuth = useAppSelector(selectAuthStatus);
+  const authedUserProfile = useAppSelector(selectAuthedUserProfile);
 
   const handleLogout = () => {
     dispatch(logoutTC());

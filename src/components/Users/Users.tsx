@@ -5,14 +5,20 @@ import styles from "./Users.module.css";
 import { PaginationBlock } from "../common/PaginationBlock/PaginationBlock";
 import { User } from "./User/User";
 import { setAppErrorAC } from "../../bll/app-reducer";
+import {
+  selectCurrentPage,
+  selectTotalUsersCount,
+  selectUsers,
+  selectUsersCountPerPage,
+} from "../../utils/selectors";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
 
-  const users = useAppSelector((state) => state.usersPage.users);
-  const totalUsersCount = useAppSelector((state) => state.usersPage.totalUsersCount);
-  const currentPage = useAppSelector((state) => state.usersPage.currentPage);
-  const usersCountPerPage = useAppSelector((state) => state.usersPage.usersCountPerPage);
+  const users = useAppSelector(selectUsers);
+  const totalUsersCount = useAppSelector(selectTotalUsersCount);
+  const currentPage = useAppSelector(selectCurrentPage);
+  const usersCountPerPage = useAppSelector(selectUsersCountPerPage);
 
   const onChangeCurrentPage = (page: number) => {
     dispatch(setCurrentPageAC(page));

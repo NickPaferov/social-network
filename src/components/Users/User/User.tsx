@@ -5,6 +5,7 @@ import { FollowUnfollow } from "../../common/FollowUnfollow/FollowUnfollow";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../bll/store";
 import { UserType } from "../../../api/users-api";
+import { selectRequestProcessingStatus } from "../../../utils/selectors";
 
 type PropsType = {
   user: UserType;
@@ -13,7 +14,7 @@ type PropsType = {
 export const User: FC<PropsType> = ({ user }) => {
   const navigate = useNavigate();
 
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const handleMoveToUserProfile = (userId: number) => {
     if (isRequestProcessing) {

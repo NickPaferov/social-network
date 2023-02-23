@@ -2,6 +2,10 @@ import React, { FC } from "react";
 import { followUserTC, unfollowUserTC } from "../../../bll/users-reducer";
 import { useAppDispatch, useAppSelector } from "../../../bll/store";
 import { Button } from "../Button/Button";
+import {
+  selectPaginationParamsLoadingStatus,
+  selectUsersInFollowingProcess,
+} from "../../../utils/selectors";
 
 type PropsType = {
   followed: boolean;
@@ -11,12 +15,8 @@ type PropsType = {
 export const FollowUnfollow: FC<PropsType> = ({ followed, userId }) => {
   const dispatch = useAppDispatch();
 
-  const isPaginationParamsLoading = useAppSelector(
-    (state) => state.usersPage.isPaginationParamsLoading
-  );
-  const usersInFollowingProcess = useAppSelector(
-    (state) => state.usersPage.usersInFollowingProcess
-  );
+  const isPaginationParamsLoading = useAppSelector(selectPaginationParamsLoadingStatus);
+  const usersInFollowingProcess = useAppSelector(selectUsersInFollowingProcess);
 
   const handleUnfollowUser = () => {
     dispatch(unfollowUserTC(userId));

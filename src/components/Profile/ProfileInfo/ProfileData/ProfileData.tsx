@@ -3,16 +3,22 @@ import { useAppSelector } from "../../../../bll/store";
 import styles from "./ProfileData.module.css";
 import { UserContactsType } from "../../../../api/profile-api";
 import { Button } from "../../../common/Button/Button";
+import {
+  selectAuthedUserId,
+  selectCurrentUserId,
+  selectCurrentUserProfile,
+  selectRequestProcessingStatus,
+} from "../../../../utils/selectors";
 
 type PropsType = {
   onEditMode: () => void;
 };
 
 export const ProfileData: FC<PropsType> = ({ onEditMode }) => {
-  const currentUserProfile = useAppSelector((state) => state.profilePage.currentUserProfile);
-  const currentUserId = useAppSelector((state) => state.profilePage.currentUserProfile?.userId);
-  const authedUserId = useAppSelector((state) => state.auth.id);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const currentUserProfile = useAppSelector(selectCurrentUserProfile);
+  const currentUserId = useAppSelector(selectCurrentUserId);
+  const authedUserId = useAppSelector(selectAuthedUserId);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const handleOnEditMode = () => {
     onEditMode();

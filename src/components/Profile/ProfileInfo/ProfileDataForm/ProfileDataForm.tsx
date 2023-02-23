@@ -8,6 +8,10 @@ import styles from "./ProfileDataForm.module.css";
 import { UserContactsType } from "../../../../api/profile-api";
 import { ProfileDataFormError } from "./ProfileDataFormErrors/ProfileDataFormError";
 import { Button } from "../../../common/Button/Button";
+import {
+  selectCurrentUserProfile,
+  selectRequestProcessingStatus,
+} from "../../../../utils/selectors";
 
 export type FormInputsType = {
   fullName: string;
@@ -43,8 +47,8 @@ type PropsType = {
 export const ProfileDataForm: FC<PropsType> = ({ offEditMode }) => {
   const dispatch = useAppDispatch();
 
-  const currentUserProfile = useAppSelector((state) => state.profilePage.currentUserProfile);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const currentUserProfile = useAppSelector(selectCurrentUserProfile);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const {
     register,
