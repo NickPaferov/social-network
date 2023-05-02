@@ -3,11 +3,16 @@
 }
 
 .eye {
+    margin-left: 5px;
     cursor: pointer;
 }
 
 .error {
     color: red
+}
+
+.checkbox {
+    cursor: pointer;
 }
 
 .captchaBlock {

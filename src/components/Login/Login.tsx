@@ -94,13 +94,19 @@ export const Login = () => {
               disabled={isRequestProcessing}
               {...register("password")}
             />
-            <span className={styles.eye} onClick={handlePasswordVisibility}>
-              &#128065;
+            {isPasswordVisible
+            ?<span className={styles.eye} onClick={handlePasswordVisibility}>
+              🙈
             </span>
+            :<span className={styles.eye} onClick={handlePasswordVisibility}>
+              👀
+            </span>
+            }
             <p className={styles.error}>{errors.password?.message}</p>
           </div>
           <div>
             <input
+              className={styles.checkbox}
               type="checkbox"
               defaultChecked={true}
               disabled={isRequestProcessing}
