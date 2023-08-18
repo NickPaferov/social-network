@@ -8,7 +8,7 @@
 
 .header {
     width: 100%;
-    height: 10vh;
+    height: content-box;
     background-color: cornflowerblue;
 }
 
@@ -32,4 +32,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+    .body {
+        max-height: 90vh;
+        flex-direction: column-reverse;
+    }
+
+    .navbar {
+        width: 100%;
+    }
+
+    .content {
+        height: 100vh;
+        width: 100%;
+        overflow: auto;
+    }
+}
+
+@media screen and (max-width: 724px) {
+    .layout {
+        width: 100%;
+    }
 }

@@ -13,3 +13,10 @@
 .activeLink {
     font-weight: bold;
 }
+
+@media screen and (max-width: 1024px) {
+    .navBlock {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}

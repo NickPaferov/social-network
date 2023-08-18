@@ -1,20 +1,17 @@
-import React, { useEffect } from "react";
-import { Profile } from "../Profile/Profile";
-import { Header } from "../Header/Header";
-import { Navbar } from "../Navbar/Navbar";
+import React, {useEffect} from "react";
+import {Profile} from "../Profile/Profile";
+import {Header} from "../Header/Header";
+import {Navbar} from "../Navbar/Navbar";
 import styles from "./App.module.css";
-import { Dialogs } from "../Dialogs/Dialogs";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { News } from "../News/News";
-import { Music } from "../Music/Music";
-import { Settings } from "../Settings/Settings";
-import { Users } from "../Users/Users";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { Login } from "../Login/Login";
-import { ProtectedRoutes } from "../../utils/ProtectedRoutes";
-import { Preloader } from "../common/Preloader/Preloader";
-import { initializeAppTC } from "../../bll/app-reducer";
-import { selectAppInitStatus } from "../../utils/selectors";
+import {Dialogs} from "../Dialogs/Dialogs";
+import {Navigate, Route, Routes} from "react-router-dom";
+import {Users} from "../Users/Users";
+import {useAppDispatch, useAppSelector} from "../../bll/store";
+import {Login} from "../Login/Login";
+import {ProtectedRoutes} from "../../utils/ProtectedRoutes";
+import {Preloader} from "../common/Preloader/Preloader";
+import {initializeAppTC} from "../../bll/app-reducer";
+import {selectAppInitStatus} from "../../utils/selectors";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -54,9 +51,6 @@ function App() {
               <Route path="/login" element={<Login />} />
             </Route>
             <Route path="/users" element={<Users />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/music" element={<Music />} />
-            <Route path="/settings" element={<Settings />} />
           </Routes>
         </div>
       </div>

@@ -1,6 +1,7 @@
 .profileBlock {
     display: flex;
-    gap: 20px;
+    gap: 60px;
+    flex-wrap: wrap;
 }
 
 .profileInfo {
@@ -21,8 +22,9 @@
 }
 
 .photoChanger {
-    position: absolute;
-    margin: 168px 0 0 168px;
+    position: relative;
+    align-self: flex-end;
+    margin: 5px -45px;
     padding: 3px;
     background-color: lavender;
     border-radius: 25%;

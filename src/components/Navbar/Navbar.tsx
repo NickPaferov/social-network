@@ -21,15 +21,6 @@ export const Navbar = () => {
       <NavLink to="/dialogs" className={setActive}>
         Messages
       </NavLink>
-      <NavLink to="/news" className={setActive}>
-        News
-      </NavLink>
-      <NavLink to="/music" className={setActive}>
-        Music
-      </NavLink>
-      <NavLink to="/settings" className={setActive}>
-        Settings
-      </NavLink>
     </div>
   );
 };
