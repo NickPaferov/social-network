@@ -17,6 +17,11 @@
     align-items: center;
 }
 
+.preloader {
+    position: fixed;
+    margin: 0 35%;
+}
+
 .text {
     color: white;
     font-size: 35px;
@@ -46,8 +51,12 @@
         align-self: start;
     }
 
+    .preloader {
+        position: absolute;
+    }
+
     .authedUser {
-        align-self: end;
+        align-self: flex-end;
     }
 
     .authedUserName {

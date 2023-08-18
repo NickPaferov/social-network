@@ -37,7 +37,7 @@ export const Header = () => {
                 <img className={styles.logoImg} src={logoImg} alt="logo"/>
                 <span className={styles.text}>uch</span>
             </div>
-            {isRequestProcessing && <Preloader/>}
+            {isRequestProcessing && <div className={styles.preloader}><Preloader/></div>}
             <AppError/>
             {isAuth ? (
                 <div className={styles.authedUser}>
