@@ -28,7 +28,8 @@ export const dialogsReducer = (
   }
 };
 
-export const sendMessageAC = (message: MessageType) => ({ type: "SEND-MESSAGE", message } as const);
+export const sendMessageAC = (message: MessageType) =>
+  ({ type: "SEND-MESSAGE", message } as const);
 
 export type DialogType = {
   id: number;

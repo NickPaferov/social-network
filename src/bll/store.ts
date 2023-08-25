@@ -1,4 +1,8 @@
-import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
+import {
+  applyMiddleware,
+  combineReducers,
+  legacy_createStore as createStore,
+} from "redux";
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { ProfileActionsType, profileReducer } from "./profile-reducer";
@@ -33,10 +37,15 @@ export type AppThunkType<ReturnType = void> = ThunkAction<
   AppRootActionsType
 >;
 
-export type DispatchType = ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>;
+export type DispatchType = ThunkDispatch<
+  AppRootStateType,
+  unknown,
+  AppRootActionsType
+>;
 
 export const useAppDispatch = () => useDispatch<DispatchType>();
-export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> =
+  useSelector;
 
 //@ts-ignore
 window.store = store;

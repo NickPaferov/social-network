@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { getUsersTC, setCurrentPageAC, setUsersCountPerPageAC } from "../../bll/users-reducer";
+import {
+  getUsersTC,
+  setCurrentPageAC,
+  setUsersCountPerPageAC,
+} from "../../bll/users-reducer";
 import styles from "./Users.module.css";
 import { PaginationBlock } from "../common/PaginationBlock/PaginationBlock";
 import { User } from "./User/User";

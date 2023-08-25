@@ -1,22 +1,22 @@
 .content {
-    margin: 30px;
-    display: flex;
-    gap: 50px;
+  margin: 30px;
+  display: flex;
+  gap: 50px;
 }
 
 .dialogsItems {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .messageArea {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
 }
 
 .btn {
-    width: 80px;
+  width: 80px;
 }

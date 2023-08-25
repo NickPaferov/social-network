@@ -1,35 +1,35 @@
 .profileBlock {
-    display: flex;
-    gap: 60px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
 }
 
 .profileInfo {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .avaBlock {
-    display: flex;
-    margin: 0 20px 20px 0;
-    gap: 10px;
+  display: flex;
+  margin: 0 20px 20px 0;
+  gap: 10px;
 }
 
 .ava {
-    width: 200px;
-    height: 200px;
-    border-radius: 5%;
+  width: 200px;
+  height: 200px;
+  border-radius: 5%;
 }
 
 .photoChanger {
-    position: relative;
-    align-self: flex-end;
-    margin: 5px -45px;
-    padding: 3px;
-    background-color: lavender;
-    border-radius: 25%;
+  position: relative;
+  align-self: flex-end;
+  margin: 5px -45px;
+  padding: 3px;
+  background-color: lavender;
+  border-radius: 25%;
 }
 
 .camera {
-    cursor: pointer;
+  cursor: pointer;
 }

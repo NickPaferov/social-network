@@ -1,31 +1,33 @@
 .paginationBlock {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 .pages {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .page {
-    width: 40px;
+  width: 40px;
 }
 
-.firstPage, .lastPage {
-    display: flex;
-    gap: 10px;
+.firstPage,
+.lastPage {
+  display: flex;
+  gap: 10px;
 }
 
 .selectedPage {
-    font-weight: bold;
-    background-color: cornflowerblue;
-    color: white;
-    border: transparent;
-    border-radius: 10%;
+  font-weight: bold;
+  background-color: cornflowerblue;
+  color: white;
+  border: transparent;
+  border-radius: 10%;
 }
 
-button, select {
-    cursor: pointer;
+button,
+select {
+  cursor: pointer;
 }

@@ -1,17 +1,17 @@
 .post {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .postInfo {
-   display: flex;
-    align-items: center;
-    margin: 15px 10px 5px 0;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  margin: 15px 10px 5px 0;
+  gap: 10px;
 }
 
 .ava {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }

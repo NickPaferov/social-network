@@ -15,7 +15,10 @@ const initialState = {
   captchaUrl: null as string | null,
 };
 
-export const authReducer = (state = initialState, action: AuthActionsType): InitialStateType => {
+export const authReducer = (
+  state = initialState,
+  action: AuthActionsType
+): InitialStateType => {
   switch (action.type) {
     case "AUTH/SET-AUTH-USER-DATA":
       return { ...state, ...action.payload };
@@ -66,11 +69,21 @@ export const authMeTC = (): AppThunkType => async (dispatch) => {
 };
 
 export const loginTC =
-  (email: string, password: string, rememberMe: boolean, captcha: string): AppThunkType =>
+  (
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string
+  ): AppThunkType =>
   async (dispatch) => {
     dispatch(setIsRequestProcessingStatusAC(true));
     try {
-      const response = await authAPI.login(email, password, rememberMe, captcha);
+      const response = await authAPI.login(
+        email,
+        password,
+        rememberMe,
+        captcha
+      );
       if (response.data.resultCode === 0) {
         dispatch(authMeTC());
         dispatch(setLoginErrorAC(null));

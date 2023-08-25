@@ -1,22 +1,22 @@
 .navBlock {
-    margin: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .link {
-    color: navy;
-    text-decoration: none;
+  color: navy;
+  text-decoration: none;
 }
 
 .activeLink {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 1024px) {
-    .navBlock {
-        flex-direction: row;
-        justify-content: space-around;
-    }
+  .navBlock {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }

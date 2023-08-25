@@ -4,7 +4,12 @@ export const authAPI = {
   authMe() {
     return instance.get<AuthMeResponseType>("auth/me");
   },
-  login(email: string, password: string, rememberMe: boolean, captcha?: string) {
+  login(
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha?: string
+  ) {
     return instance.post<LoginResponseType>("auth/login", {
       email,
       password,

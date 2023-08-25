@@ -3,7 +3,10 @@ import styles from "./Profile.module.css";
 import { MyPosts } from "./MyPosts/MyPosts";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { getUserProfileTC, setCurrentUserProfileAC } from "../../bll/profile-reducer";
+import {
+  getUserProfileTC,
+  setCurrentUserProfileAC,
+} from "../../bll/profile-reducer";
 import { useNavigate, useParams } from "react-router-dom";
 import { setAppErrorAC } from "../../bll/app-reducer";
 import {

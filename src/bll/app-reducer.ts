@@ -8,7 +8,10 @@ const initialState = {
   appError: null as string | null,
 };
 
-export const appReducer = (state = initialState, action: AppActionsType): InitialStateType => {
+export const appReducer = (
+  state = initialState,
+  action: AppActionsType
+): InitialStateType => {
   switch (action.type) {
     case "APP/SET-IS-INITIALIZED": {
       return { ...state, isInitialized: action.isInitialized };

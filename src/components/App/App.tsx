@@ -1,17 +1,17 @@
-import React, {useEffect} from "react";
-import {Profile} from "../Profile/Profile";
-import {Header} from "../Header/Header";
-import {Navbar} from "../Navbar/Navbar";
+import React, { useEffect } from "react";
+import { Profile } from "../Profile/Profile";
+import { Header } from "../Header/Header";
+import { Navbar } from "../Navbar/Navbar";
 import styles from "./App.module.css";
-import {Dialogs} from "../Dialogs/Dialogs";
-import {Navigate, Route, Routes} from "react-router-dom";
-import {Users} from "../Users/Users";
-import {useAppDispatch, useAppSelector} from "../../bll/store";
-import {Login} from "../Login/Login";
-import {ProtectedRoutes} from "../../utils/ProtectedRoutes";
-import {Preloader} from "../common/Preloader/Preloader";
-import {initializeAppTC} from "../../bll/app-reducer";
-import {selectAppInitStatus} from "../../utils/selectors";
+import { Dialogs } from "../Dialogs/Dialogs";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Users } from "../Users/Users";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { Login } from "../Login/Login";
+import { ProtectedRoutes } from "../../utils/ProtectedRoutes";
+import { Preloader } from "../common/Preloader/Preloader";
+import { initializeAppTC } from "../../bll/app-reducer";
+import { selectAppInitStatus } from "../../utils/selectors";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -41,13 +41,24 @@ function App() {
         </div>
         <div className={styles.content}>
           <Routes>
-            <Route element={<ProtectedRoutes userIsAuth={true} redirectTo="/login" />}>
+            <Route
+              element={
+                <ProtectedRoutes userIsAuth={true} redirectTo="/login" />
+              }
+            >
               <Route path="/" element={<Navigate to="/profile" />} />
-              <Route path="/social-network" element={<Navigate to="/profile" />} />
+              <Route
+                path="/social-network"
+                element={<Navigate to="/profile" />}
+              />
               <Route path="/profile/:userId?" element={<Profile />} />
               <Route path="/dialogs/*" element={<Dialogs />} />
             </Route>
-            <Route element={<ProtectedRoutes userIsAuth={false} redirectTo="/profile" />}>
+            <Route
+              element={
+                <ProtectedRoutes userIsAuth={false} redirectTo="/profile" />
+              }
+            >
               <Route path="/login" element={<Login />} />
             </Route>
             <Route path="/users" element={<Users />} />

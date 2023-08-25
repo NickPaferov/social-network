@@ -1,7 +1,10 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import styles from "./ProfileStatus.module.css";
 import { useAppDispatch, useAppSelector } from "../../../../bll/store";
-import { getUserStatusTC, updateAuthedUserStatusTC } from "../../../../bll/profile-reducer";
+import {
+  getUserStatusTC,
+  updateAuthedUserStatusTC,
+} from "../../../../bll/profile-reducer";
 import {
   selectAuthedUserId,
   selectCurrentUserId,

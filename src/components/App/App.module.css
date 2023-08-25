@@ -1,58 +1,64 @@
 .layout {
-    width: 80%;
-    min-height: 100vh;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+  width: 80%;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
-    width: 100%;
-    height: content-box;
-    background-color: cornflowerblue;
+  width: 100%;
+  height: content-box;
+  background-image: url("../../assets/images/backGroundHeader.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .body {
-    min-height: 90vh;
-    display: flex;
+  min-height: 90vh;
+  display: flex;
 }
 
 .navbar {
-    width: 20%;
-    background-color: lightblue;
+  width: 20%;
+  background-image: url("../../assets/images/backGroundNavbar.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .content {
-    width: 80%;
-    background-color: lavender;
+  width: 80%;
+  background-image: url("../../assets/images/backGroundContent.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .initialization {
-    background-color: lavender;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: lavender;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 1024px) {
-    .body {
-        max-height: 90vh;
-        flex-direction: column-reverse;
-    }
+  .body {
+    max-height: 90vh;
+    flex-direction: column-reverse;
+  }
 
-    .navbar {
-        width: 100%;
-    }
+  .navbar {
+    width: 100%;
+  }
 
-    .content {
-        height: 100vh;
-        width: 100%;
-        overflow: auto;
-    }
+  .content {
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+  }
 }
 
 @media screen and (max-width: 724px) {
-    .layout {
-        width: 100%;
-    }
+  .layout {
+    width: 100%;
+  }
 }

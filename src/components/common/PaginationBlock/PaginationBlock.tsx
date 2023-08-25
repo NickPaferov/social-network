@@ -92,7 +92,11 @@ export const PaginationBlock: FC<PropsType> = ({
         {pagesRangeNumber !== 1 && (
           <div className={styles.firstPage}>
             <button
-              className={currentPage === 1 ? `${styles.page} ${styles.selectedPage}` : styles.page}
+              className={
+                currentPage === 1
+                  ? `${styles.page} ${styles.selectedPage}`
+                  : styles.page
+              }
               disabled={isRequestProcessing}
               onClick={handleSetFirstPageAsCurrent}
             >
@@ -113,12 +117,17 @@ export const PaginationBlock: FC<PropsType> = ({
           </div>
         )}
         {pages
-          .filter((page) => page >= firstRangePageNumber && page <= lastRangePageNumber)
+          .filter(
+            (page) =>
+              page >= firstRangePageNumber && page <= lastRangePageNumber
+          )
           .map((page, index) => (
             <button
               key={index}
               className={
-                page === currentPage ? `${styles.page} ${styles.selectedPage}` : styles.page
+                page === currentPage
+                  ? `${styles.page} ${styles.selectedPage}`
+                  : styles.page
               }
               disabled={isRequestProcessing}
               onClick={() => handleChangeCurrentPage(page)}
@@ -142,7 +151,9 @@ export const PaginationBlock: FC<PropsType> = ({
             {currentPage !== pagesCount - 1 && <span>&#8230;</span>}
             <button
               className={
-                currentPage === pagesCount ? `${styles.page} ${styles.selectedPage}` : styles.page
+                currentPage === pagesCount
+                  ? `${styles.page} ${styles.selectedPage}`
+                  : styles.page
               }
               disabled={isRequestProcessing}
               onClick={handleSetLastPageAsCurrent}
@@ -158,7 +169,9 @@ export const PaginationBlock: FC<PropsType> = ({
           &#62;
         </button>
         <button
-          disabled={isRequestProcessing || pagesRangeNumber === pagesRangesCount}
+          disabled={
+            isRequestProcessing || pagesRangeNumber === pagesRangesCount
+          }
           onClick={handleIncreasePagesRangeNumber}
         >
           &#11166;

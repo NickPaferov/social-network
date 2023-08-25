@@ -26,7 +26,9 @@ export const Dialogs = () => {
 
   const handleAddMessage = () => {
     if (newMessageText.trim().length) {
-      dispatch(sendMessageAC({ id: messages.length + 1, messageText: newMessageText }));
+      dispatch(
+        sendMessageAC({ id: messages.length + 1, messageText: newMessageText })
+      );
       setNewMessageText("");
     }
   };
@@ -51,7 +53,11 @@ export const Dialogs = () => {
             value={newMessageText}
             onChange={handleChangeNewMessageText}
           />
-          <Button title={"Send"} disabled={isRequestProcessing} handleClick={handleAddMessage} />
+          <Button
+            title={"Send"}
+            disabled={isRequestProcessing}
+            handleClick={handleAddMessage}
+          />
         </div>
       </div>
     </div>

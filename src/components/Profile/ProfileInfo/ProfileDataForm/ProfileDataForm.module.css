@@ -1,16 +1,16 @@
 .title {
-    color: teal;
+  color: teal;
 }
 
 .contacts {
-    padding-left: 10px;
+  padding-left: 10px;
 }
 
 .error {
-    color: red;
+  color: red;
 }
 
-.btnBlock{
-    display: flex;
-    gap: 20px;
+.btnBlock {
+  display: flex;
+  gap: 20px;
 }

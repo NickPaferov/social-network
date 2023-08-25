@@ -6,5 +6,7 @@ import { selectAppError } from "../../../utils/selectors";
 export const AppError = () => {
   const appError = useAppSelector(selectAppError);
 
-  return <div>{appError && <div className={styles.error}>{appError}</div>}</div>;
+  return (
+    <div>{appError && <div className={styles.error}>{appError}</div>}</div>
+  );
 };

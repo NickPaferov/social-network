@@ -1,7 +1,7 @@
 .dialog {
-    color: navy;
-    text-decoration: none;
+  color: navy;
+  text-decoration: none;
 }
 .activeDialog {
-    font-weight: bold;
+  font-weight: bold;
 }

@@ -45,11 +45,23 @@ export const ProfileData: FC<PropsType> = ({ onEditMode }) => {
               {Object.keys(currentUserProfile.contacts).map((key) => {
                 return (
                   <div key={key} className={styles.contacts}>
-                    {currentUserProfile.contacts[key as keyof UserContactsType] && (
+                    {currentUserProfile.contacts[
+                      key as keyof UserContactsType
+                    ] && (
                       <div>
                         <span className={styles.title}>{key}: </span>
-                        <a href={currentUserProfile.contacts[key as keyof UserContactsType]}>
-                          {currentUserProfile.contacts[key as keyof UserContactsType]}
+                        <a
+                          href={
+                            currentUserProfile.contacts[
+                              key as keyof UserContactsType
+                            ]
+                          }
+                        >
+                          {
+                            currentUserProfile.contacts[
+                              key as keyof UserContactsType
+                            ]
+                          }
                         </a>
                       </div>
                     )}
@@ -61,7 +73,11 @@ export const ProfileData: FC<PropsType> = ({ onEditMode }) => {
         </div>
       )}
       {currentUserId === authedUserId && (
-        <Button title={"Edit"} disabled={isRequestProcessing} handleClick={handleOnEditMode} />
+        <Button
+          title={"Edit"}
+          disabled={isRequestProcessing}
+          handleClick={handleOnEditMode}
+        />
       )}
     </div>
   );

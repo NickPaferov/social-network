@@ -15,7 +15,9 @@ type PropsType = {
 export const FollowUnfollow: FC<PropsType> = ({ followed, userId }) => {
   const dispatch = useAppDispatch();
 
-  const isPaginationParamsLoading = useAppSelector(selectPaginationParamsLoadingStatus);
+  const isPaginationParamsLoading = useAppSelector(
+    selectPaginationParamsLoadingStatus
+  );
   const usersInFollowingProcess = useAppSelector(selectUsersInFollowingProcess);
 
   const handleUnfollowUser = () => {
@@ -27,14 +29,23 @@ export const FollowUnfollow: FC<PropsType> = ({ followed, userId }) => {
   };
 
   const isDisabledBtn =
-    isPaginationParamsLoading || usersInFollowingProcess.some((id) => id === userId);
+    isPaginationParamsLoading ||
+    usersInFollowingProcess.some((id) => id === userId);
 
   return (
     <div>
       {followed ? (
-        <Button title={"Unfollow"} disabled={isDisabledBtn} handleClick={handleUnfollowUser} />
+        <Button
+          title={"Unfollow"}
+          disabled={isDisabledBtn}
+          handleClick={handleUnfollowUser}
+        />
       ) : (
-        <Button title={"Follow"} disabled={isDisabledBtn} handleClick={handleFollowUser} />
+        <Button
+          title={"Follow"}
+          disabled={isDisabledBtn}
+          handleClick={handleFollowUser}
+        />
       )}
     </div>
   );

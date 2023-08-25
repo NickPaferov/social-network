@@ -47,11 +47,15 @@ export const profileReducer = (
   }
 };
 
-export const addPostAC = (post: PostType) => ({ type: "PROFILE/ADD-POST", post } as const);
-export const setCurrentUserProfileAC = (currentUserProfile: UserProfileResponseType | null) =>
+export const addPostAC = (post: PostType) =>
+  ({ type: "PROFILE/ADD-POST", post } as const);
+export const setCurrentUserProfileAC = (
+  currentUserProfile: UserProfileResponseType | null
+) =>
   ({ type: "PROFILE/SET-CURRENT-USER-PROFILE", currentUserProfile } as const);
-export const setAuthedUserProfileAC = (authedUserProfile: UserProfileResponseType | null) =>
-  ({ type: "PROFILE/SET-AUTHED-USER-PROFILE", authedUserProfile } as const);
+export const setAuthedUserProfileAC = (
+  authedUserProfile: UserProfileResponseType | null
+) => ({ type: "PROFILE/SET-AUTHED-USER-PROFILE", authedUserProfile } as const);
 export const setUserStatusAC = (userStatus: string) =>
   ({ type: "PROFILE/SET-USER-STATUS", userStatus } as const);
 export const setAuthedUserPhotoAC = (photos: UserPhotosType) =>
@@ -161,4 +165,6 @@ export type ProfileActionsType =
   | ReturnType<typeof setStatusErrorAC>
   | SetAuthedUserProfileType;
 
-export type SetAuthedUserProfileType = ReturnType<typeof setAuthedUserProfileAC>;
+export type SetAuthedUserProfileType = ReturnType<
+  typeof setAuthedUserProfileAC
+>;

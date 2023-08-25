@@ -4,7 +4,10 @@ import { Post } from "./Post/Post";
 import { useAppDispatch, useAppSelector } from "../../../bll/store";
 import { addPostAC } from "../../../bll/profile-reducer";
 import { Button } from "../../common/Button/Button";
-import { selectPosts, selectRequestProcessingStatus } from "../../../utils/selectors";
+import {
+  selectPosts,
+  selectRequestProcessingStatus,
+} from "../../../utils/selectors";
 
 export const MyPosts = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +23,13 @@ export const MyPosts = () => {
 
   const handleAddPost = () => {
     if (newPostText.trim().length) {
-      dispatch(addPostAC({ id: posts.length + 1, postText: newPostText, likesCount: 0 }));
+      dispatch(
+        addPostAC({
+          id: posts.length + 1,
+          postText: newPostText,
+          likesCount: 0,
+        })
+      );
       setNewPostText("");
     }
   };
@@ -35,10 +44,18 @@ export const MyPosts = () => {
           value={newPostText}
           onChange={handleChangeNewPostText}
         />
-        <Button title={"Add post"} disabled={isRequestProcessing} handleClick={handleAddPost} />
+        <Button
+          title={"Add post"}
+          disabled={isRequestProcessing}
+          handleClick={handleAddPost}
+        />
       </div>
       {posts.map((post) => (
-        <Post key={post.id} postText={post.postText} likesCount={post.likesCount} />
+        <Post
+          key={post.id}
+          postText={post.postText}
+          likesCount={post.likesCount}
+        />
       ))}
     </div>
   );

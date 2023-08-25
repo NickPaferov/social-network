@@ -22,7 +22,10 @@ type FormInputsType = {
 
 const schema = yup
   .object({
-    email: yup.string().required("Email is required").email("Must be a valid email"),
+    email: yup
+      .string()
+      .required("Email is required")
+      .email("Must be a valid email"),
     password: yup
       .string()
       .required("Password is required")
@@ -84,7 +87,11 @@ export const Login = () => {
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
+            <input
+              placeholder="Email"
+              disabled={isRequestProcessing}
+              {...register("email")}
+            />
             <p className={styles.error}>{errors.email?.message}</p>
           </div>
           <div>
@@ -94,14 +101,15 @@ export const Login = () => {
               disabled={isRequestProcessing}
               {...register("password")}
             />
-            {isPasswordVisible
-            ?<span className={styles.eye} onClick={handlePasswordVisibility}>
-              🙈
-            </span>
-            :<span className={styles.eye} onClick={handlePasswordVisibility}>
-              👀
-            </span>
-            }
+            {isPasswordVisible ? (
+              <span className={styles.eye} onClick={handlePasswordVisibility}>
+                🙈
+              </span>
+            ) : (
+              <span className={styles.eye} onClick={handlePasswordVisibility}>
+                👀
+              </span>
+            )}
             <p className={styles.error}>{errors.password?.message}</p>
           </div>
           <div>
@@ -117,7 +125,11 @@ export const Login = () => {
           {loginError && <div className={styles.error}>{loginError}</div>}
           {captchaUrl && (
             <div className={styles.captchaBlock}>
-              <img className={styles.captcha} src={captchaUrl} alt="anti-bot symbols" />
+              <img
+                className={styles.captcha}
+                src={captchaUrl}
+                alt="anti-bot symbols"
+              />
               <input
                 placeholder="Anti-bot symbols"
                 disabled={isRequestProcessing}

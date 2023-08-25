@@ -1,16 +1,16 @@
 .status {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .title {
-    color: teal;
+  color: teal;
 }
 
 .pencil {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .error {
-    color: red;
+  color: red;
 }

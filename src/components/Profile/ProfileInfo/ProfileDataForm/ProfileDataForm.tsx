@@ -26,7 +26,10 @@ const schema = yup
   .shape({
     fullName: yup.string().trim().required("Field is required"),
     aboutMe: yup.string().trim().required("Field is required"),
-    lookingForAJobDescription: yup.string().trim().required("Field is required"),
+    lookingForAJobDescription: yup
+      .string()
+      .trim()
+      .required("Field is required"),
     contacts: yup.object().shape({
       facebook: yup.string().url("Must be a valid url"),
       website: yup.string().url("Must be a valid url"),
@@ -101,7 +104,9 @@ export const ProfileDataForm: FC<PropsType> = ({ offEditMode }) => {
               defaultValue={currentUserProfile.lookingForAJobDescription}
               {...register("lookingForAJobDescription")}
             />
-            <p className={styles.error}>{errors.lookingForAJobDescription?.message}</p>
+            <p className={styles.error}>
+              {errors.lookingForAJobDescription?.message}
+            </p>
           </div>
           <div>
             <span className={styles.title}>Contacts:</span>
@@ -113,7 +118,11 @@ export const ProfileDataForm: FC<PropsType> = ({ offEditMode }) => {
                     <input
                       type="text"
                       placeholder={key}
-                      defaultValue={currentUserProfile.contacts[key as keyof UserContactsType]}
+                      defaultValue={
+                        currentUserProfile.contacts[
+                          key as keyof UserContactsType
+                        ]
+                      }
                       {...register(`contacts.${key as keyof UserContactsType}`)}
                     />
                     <ProfileDataFormError contact={key} errors={errors} />
@@ -123,7 +132,11 @@ export const ProfileDataForm: FC<PropsType> = ({ offEditMode }) => {
             </div>
           </div>
           <div className={styles.btnBlock}>
-            <Button title={"Cancel"} disabled={isRequestProcessing} handleClick={offEditMode} />
+            <Button
+              title={"Cancel"}
+              disabled={isRequestProcessing}
+              handleClick={offEditMode}
+            />
             <Button title={"Save"} disabled={isRequestProcessing} />
           </div>
         </form>

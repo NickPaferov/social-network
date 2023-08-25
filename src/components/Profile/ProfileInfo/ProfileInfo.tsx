@@ -70,7 +70,12 @@ export const ProfileInfo = () => {
               )}
               {authedUserId === currentUserId && (
                 <div className={styles.photoChanger}>
-                  <input type="file" id="file" hidden onChange={handleUpdatePhoto} />
+                  <input
+                    type="file"
+                    id="file"
+                    hidden
+                    onChange={handleUpdatePhoto}
+                  />
                   <label className={styles.camera} htmlFor="file">
                     &#128247;
                   </label>
